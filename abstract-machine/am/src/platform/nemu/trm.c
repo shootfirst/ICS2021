@@ -11,6 +11,11 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 static const char mainargs[] = MAINARGS;
 
 void putch(char ch) {
+  //********************************pa2 analyze***********************************
+  /* outb outw outl 往代表输出地址SERIAL_PORT写入1字节，2字节，4字节打印在终端
+   *
+   */
+  //********************************pa2 analyze***********************************
   outb(SERIAL_PORT, ch);
 }
 
