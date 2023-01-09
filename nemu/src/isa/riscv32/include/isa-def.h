@@ -2,26 +2,15 @@
 #define __ISA_RISCV32_H__
 
 #include <common.h>
-#include <isa.h>
 
-typedef struct
-{
-  struct
-  {
+typedef struct {
+  struct {
     rtlreg_t _32;
   } gpr[32];
 
   vaddr_t pc;
-
-  struct
-  {
-    rtlreg_t _32;
-  } csr[6];
-
-  bool INTR;
 } riscv32_CPU_state;
 
-// decode
 // decode
 typedef struct {
   union {
@@ -65,7 +54,7 @@ typedef struct {
       uint32_t funct3    : 3;
       uint32_t rs1       : 5;
       uint32_t rs2       : 5;
-      int32_t  funct7    : 7;
+      int32_t simm11_5   : 7;
     } r;
     struct {
       uint32_t opcode1_0 : 2;
@@ -82,7 +71,7 @@ typedef struct {
     uint32_t val;
   } instr;
 } riscv32_ISADecodeInfo;
-// #define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
-#define isa_mmu_check(vaddr, len, type) (cpu.csr[REG_SATP]._32 >> 31)
+
+#define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
 
 #endif
