@@ -54,9 +54,6 @@ void *malloc(size_t size) {
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
   uint8_t *old_hbrk = mem_heap.hbrk;
   mem_heap.hbrk += size;
-
-  // printf("the alloced heap of [%x,%x] adress is %x with size %d", mem_heap.start, mem_heap.end ,old_hbrk, size);
-  // printf("\n");
   assert( (mem_heap.hbrk >= mem_heap.start) && (mem_heap.hbrk < mem_heap.end) );
 #endif
   return (void*)old_hbrk;
