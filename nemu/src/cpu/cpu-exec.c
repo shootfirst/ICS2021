@@ -4,6 +4,10 @@
 #include <isa-all-instr.h>
 #include <locale.h>
 
+//*****************************************pa1************************************************
+#include "../../monitor/sdb/sdb.h"
+//*****************************************pa1************************************************
+
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -18,63 +22,24 @@ static bool g_print_step = false;
 const rtlreg_t rzero = 0;
 rtlreg_t tmp_reg[4];
 
-CSR_state csr = {.mstatus.value = 0x1800};
-
 void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
 
+static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
-
-#define RINGBUF_LINES 12
-#define RINGBUF_LENGTH 128
-char instr_ringbuf[RINGBUF_LINES][RINGBUF_LENGTH];
-long ringbuf_end = 0;
-#define RINGBUF_ELEMENT(index) (instr_ringbuf[index % RINGBUF_LINES])
-
+  if (ITRACE_COND) log_write("%s\n", _this->logbuf);
 #endif
-
-#include "../monitor/sdb/sdb.h"
-
-static void trace_and_difftest(Decode *_this, vaddr_t dnpc){
-  #ifdef CONFIG_ITRACE_COND
-    if (ITRACE_COND) log_write("%s\n", _this->logbuf);
-
-    strncpy(RINGBUF_ELEMENT(ringbuf_end), _this->logbuf, RINGBUF_LENGTH);
-    ringbuf_end++;
-  
-  #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
-  
-  #ifdef CONFIG_ITRACE
-    WP* point = NULL;
-    if (check_watchpoint(&point)){
-      printf("Stoped at \e[1;36mWatchPoint(NO.%d)\e[0m: %s \n", point->NO, point->condation);
-      puts(_this->logbuf);
-      nemu_state.state = NEMU_STOP;
-    }
-  #endif
-}
 
-#ifdef CONFIG_ITRACE_COND
-static char last_instr[RINGBUF_LENGTH];
+  //*****************************************pa1************************************************
+#ifdef CONFIG_WATCHPOINT
+  int res = update_and_stop();
+  if (res == 1) {
+    nemu_state.state = NEMU_STOP;
+  }
 #endif
-
-//state为1时恶性终止，需要手动加入一条记录
-static void print_instr_ringbuf(int state){
-  #ifdef CONFIG_ITRACE_COND
-  if (state){
-    strncpy(RINGBUF_ELEMENT(ringbuf_end), last_instr, RINGBUF_LENGTH);
-    ringbuf_end++;
-  }
-
-  printf(ASNI_FMT("====== The nearest %d instructions ======\n", ASNI_FG_RED), RINGBUF_LINES);
-  for(int i = ringbuf_end >= RINGBUF_LINES ? ringbuf_end : 0; 
-    i < ringbuf_end + (ringbuf_end >= RINGBUF_LINES ? RINGBUF_LINES : 0);
-    ++i){
-    printf(ASNI_FMT("%s\n", ASNI_FG_BLACK), RINGBUF_ELEMENT(i));
-  }
-  #endif
+//*****************************************pa1************************************************
 }
 
 #include <isa-exec.h>
@@ -86,9 +51,6 @@ static const void* g_exec_table[TOTAL_INSTR] = {
 
 static void fetch_decode_exec_updatepc(Decode *s) {
   fetch_decode(s, cpu.pc);
-  #ifdef CONFIG_ITRACE_COND
-    strncpy(last_instr, s->logbuf, RINGBUF_LENGTH);
-  #endif
   s->EHelper(s);
   cpu.pc = s->dnpc;
 }
@@ -103,8 +65,6 @@ static void statistic() {
 }
 
 void assert_fail_msg() {
-  error_finfo();
-  print_instr_ringbuf(1);
   isa_reg_display();
   statistic();
 }
@@ -138,7 +98,6 @@ void fetch_decode(Decode *s, vaddr_t pc) {
 }
 
 /* Simulate how the CPU works. */
-//真离谱，往unsigned里传-1得到无穷大
 void cpu_exec(uint64_t n) {
   g_print_step = (n < MAX_INSTR_TO_PRINT);
   switch (nemu_state.state) {
@@ -164,11 +123,8 @@ void cpu_exec(uint64_t n) {
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
-    
-    
-    case NEMU_ABORT: 
-      print_instr_ringbuf(1);
-    case NEMU_END:
+
+    case NEMU_END: case NEMU_ABORT:
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ASNI_FMT("ABORT", ASNI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ASNI_FMT("HIT GOOD TRAP", ASNI_FG_GREEN) :

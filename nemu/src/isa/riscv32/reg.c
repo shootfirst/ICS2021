@@ -8,34 +8,23 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
-#define REGISTERS_PER_LINE 4
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-
 void isa_reg_display() {
-  int length = ARRLEN(regs);
-  int i = 0;
-  printf("=========寄存器信息=========\n");
-  for (i = 0; i < length; i+= REGISTERS_PER_LINE){
-    for (int j = i; j < MIN(length, i + REGISTERS_PER_LINE); ++j){
-      printf("\e[1;36m%3s:\e[0m %#12x | ", regs[j], cpu.gpr[j]._32);
-    }
-    printf("\n");
+  //***************************************pa1***************************************
+  for (int i = 0; i < 32; i++) {
+    printf("%s: %d\n", regs[i], cpu.gpr[i]._32);
   }
+  //***************************************pa1***************************************
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-  *success = true;
-  if (strcmp(s, regs[0]) == 0){
-    return cpu.gpr[0]._32;
-  }
-
-  for (int i = 1; i < ARRLEN(regs); ++i){
-    if (strcmp(regs[i], s+1) == 0){//跳过$
+  //***************************************pa1***************************************
+  for (int i = 0; i < 32; i++) {
+    if (strcmp(regs[i], s) == 0) {
       *success = true;
       return cpu.gpr[i]._32;
     }
   }
-
   *success = false;
   return -1;
+  //***************************************pa1***************************************
 }

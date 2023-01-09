@@ -8,8 +8,6 @@
 // It will be expanded as "x86" or "mips32" ...
 typedef concat(__GUEST_ISA__, _CPU_state) CPU_state;
 typedef concat(__GUEST_ISA__, _ISADecodeInfo) ISADecodeInfo;
-// TODO: 自行添加
-typedef concat(__GUEST_ISA__, _CSR_state) CSR_state;
 
 // monitor
 extern char isa_logo[];
@@ -19,14 +17,13 @@ void init_isa();
 extern CPU_state cpu;
 void isa_reg_display();
 word_t isa_reg_str2val(const char *name, bool *success);
-extern CSR_state csr;
 
 // exec
 struct Decode;
 int isa_fetch_decode(struct Decode *s);
 
 // memory
-enum { MMU_DIRECT, MMU_TRANSLATE, MMU_DYNAMIC };
+enum { MMU_DIRECT, MMU_TRANSLATE, MMU_FAIL, MMU_DYNAMIC };
 enum { MEM_TYPE_IFETCH, MEM_TYPE_READ, MEM_TYPE_WRITE };
 enum { MEM_RET_OK, MEM_RET_FAIL, MEM_RET_CROSS_PAGE };
 #ifndef isa_mmu_check
