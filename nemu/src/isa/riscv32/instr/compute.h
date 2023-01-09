@@ -170,6 +170,12 @@ def_EHelper(divu) {
    rtl_divu_q(s, ddest, dsrc1, dsrc2);
 }
 
+def_EHelper(bgeu) {
+  if ((*dsrc1) >= (*ddest)){
+    rtl_addi(s, &s->dnpc, &s->pc, sym_ext(id_src2->imm, 19));
+  }
+}
+
 //***********************************pa2*************************************
 
 

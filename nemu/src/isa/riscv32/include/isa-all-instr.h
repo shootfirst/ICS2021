@@ -15,6 +15,7 @@
                 f(mulh) \
                 f(sra) f(srl) \
                 f(bltu) \
-                f(divu)
+                f(divu) \
+                f(bgeu)
 
 def_all_EXEC_ID();
