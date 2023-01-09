@@ -1,5 +1,6 @@
 #include <isa.h>
 #include <memory/paddr.h>
+#include "ftrace/ftracer.h"
 
 void init_rand();
 void init_log(const char *log_file);
@@ -17,10 +18,8 @@ static void welcome() {
   Log("Build time: %s, %s", __TIME__, __DATE__);
   printf("Welcome to %s-NEMU!\n", ASNI_FMT(str(__GUEST_ISA__), ASNI_FG_YELLOW ASNI_BG_RED));
   printf("For help, type \"help\"\n");
-  //****************************************pa1*********************************************
   // Log("Exercise: Please remove me in the source code and compile NEMU again.");
   // assert(0);
-  //****************************************pa1*********************************************
 }
 
 #ifndef CONFIG_TARGET_AM
@@ -31,6 +30,9 @@ void sdb_set_batch_mode();
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
+static char *elf_file = NULL;
+static char *ramdisk_file = NULL;
+static char *appname = NULL;
 static int difftest_port = 1234;
 
 static long load_img() {
@@ -62,6 +64,9 @@ static int parse_args(int argc, char *argv[]) {
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
     {"help"     , no_argument      , NULL, 'h'},
+    {"elf"      , required_argument, NULL, 'e'},
+    {"ramdisk"  , required_argument, NULL, 'r'},
+    {"appname"  , required_argument, NULL, 'a'},
     {0          , 0                , NULL,  0 },
   };
   int o;
@@ -71,7 +76,12 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 1: img_file = optarg; return optind - 1;
+      case 'e': elf_file = optarg; break;
+      case 'r': ramdisk_file = optarg; break;
+      case 'a': appname = optarg; break;
+      case 1:
+      img_file = optarg;
+      return optind - 1;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
         printf("\t-b,--batch              run with batch mode\n");
@@ -111,6 +121,9 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize differential testing. */
   init_difftest(diff_so_file, img_size, difftest_port);
+  
+  if (elf_file || (ramdisk_file && appname))
+    init_ftracer(elf_file, ramdisk_file, appname);
 
   /* Initialize the simple debugger. */
   init_sdb();

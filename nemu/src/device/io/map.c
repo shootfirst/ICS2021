@@ -18,7 +18,9 @@ uint8_t* new_space(int size) {
 }
 
 static void check_bound(IOMap *map, paddr_t addr) {
+  void print_stack_trace();
   if (map == NULL) {
+    print_stack_trace();
     Assert(map != NULL, "address (" FMT_PADDR ") is out of bound at pc = " FMT_WORD, addr, cpu.pc);
   } else {
     Assert(addr <= map->high && addr >= map->low,
@@ -38,6 +40,9 @@ void init_map() {
 }
 
 word_t map_read(paddr_t addr, int len, IOMap *map) {
+  #ifdef CONFIG_DTRACE
+    Log("%#x\t for len=%d at %s", addr, len, map ? map->name : "No device");
+  #endif
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
   paddr_t offset = addr - map->low;

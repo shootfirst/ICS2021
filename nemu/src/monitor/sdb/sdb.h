@@ -2,39 +2,21 @@
 #define __SDB_H__
 
 #include <common.h>
-//************************************pa1******************************************
-#include <memory/vaddr.h>
-#include <isa.h>
-//************************************pa1******************************************
 
-word_t expr(char *e, bool *success);
-
-//************************************pa1******************************************
-
-enum watchpointtype {
-  ADDR, REG,
-};
+word_t expr(const char *e, bool *success);
 
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-
-  /* TODO: Add more members if necessary */
-  // ***********************************pa1**********************************
-  int type;
-  vaddr_t addr;
-  char reg_name[4];
-  int pre_val;
-  // ***********************************pa1**********************************
+  char condation[32];
 } WP;
 
-WP* new_wp();
+bool check_watchpoint(WP **point);
 
-void free_wp(int to_del);
+WP* new_wp(const char *condation, bool *success);
 
-void view_pointer_display();
+void free_wp(int NO);
 
-int update_and_stop();
-//************************************pa1******************************************
+void watchpoint_display();
 
 #endif
