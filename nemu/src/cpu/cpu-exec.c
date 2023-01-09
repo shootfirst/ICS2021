@@ -25,22 +25,22 @@ rtlreg_t tmp_reg[4];
 void device_update();
 void fetch_decode(Decode *s, vaddr_t pc);
 
-static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-#ifdef CONFIG_ITRACE_COND
-  if (ITRACE_COND) log_write("%s\n", _this->logbuf);
-#endif
-  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
-  IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+// static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
+// #ifdef CONFIG_ITRACE_COND
+//   if (ITRACE_COND) log_write("%s\n", _this->logbuf);
+// #endif
+//   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
+//   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
-  //*****************************************pa1************************************************
-#ifdef CONFIG_WATCHPOINT
-  int res = update_and_stop();
-  if (res == 1) {
-    nemu_state.state = NEMU_STOP;
-  }
-#endif
-//*****************************************pa1************************************************
-}
+//   //*****************************************pa1************************************************
+// #ifdef CONFIG_WATCHPOINT
+//   int res = update_and_stop();
+//   if (res == 1) {
+//     nemu_state.state = NEMU_STOP;
+//   }
+// #endif
+// //*****************************************pa1************************************************
+// }
 
 #include <isa-exec.h>
 
@@ -113,7 +113,7 @@ void cpu_exec(uint64_t n) {
   for (;n > 0; n --) {
     fetch_decode_exec_updatepc(&s);
     g_nr_guest_instr ++;
-    trace_and_difftest(&s, cpu.pc);
+    // trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
   }
