@@ -1,9 +1,20 @@
 #include <cpu/decode.h>
 #include "../local-include/rtl.h"
 
-#define INSTR_LIST(f) f(lui) f(lw) f(sw) f(inv) f(addi) f(auipc) f(jal) f(jalr) f(nemu_trap) \
-f(add) f(beq) f(sub) f(mul) f(sltiu) f(bne) f(sltu) f(xor) f(or) f(and) f(sb) f(sra) f(srl) \
-f(srai) f(srli) f(lbu) f(andi) f(sll) f(xori) f(bge) f(div) f(rem) f(blt) f(slt) f(lh) f(lhu) \
-f(slli) f(sh) f(mulh) f(bltu) f(divu) f(bgeu) f(lb) f(slti) f(mulhu)
+
+#define INSTR_LIST(f) f(lui) f(lw) f(sw) f(inv) f(nemu_trap) f(addi) f(auipc) f(jal) f(jalr) \
+                f(add) f(sltu) f(xor) f(or) f(sltiu) f(beq) f(bne) \
+                f(sub) f(sh) \
+                f(srai) f(lbu) f(andi) f(sll) f(and) f(xori) \
+                f(lh) f(lhu) f(lb) f(sb) \
+                f(bge) \
+                f(mul) f(div) \
+                f(rem) \
+                f(blt) f(slt) \
+                f(slli) f(srli) \
+                f(mulh) \
+                f(sra) f(srl) \
+                f(bltu) \
+                f(divu)
 
 def_all_EXEC_ID();
