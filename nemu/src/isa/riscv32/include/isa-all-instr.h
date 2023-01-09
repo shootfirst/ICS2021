@@ -16,6 +16,6 @@
                 f(sra) f(srl) \
                 f(bltu) \
                 f(divu) \
-                f(bgeu)
+                f(bgeu) f(ori)
 
 def_all_EXEC_ID();
