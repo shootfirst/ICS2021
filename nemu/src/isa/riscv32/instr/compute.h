@@ -188,7 +188,7 @@
 // //***********************************pa2*************************************
 
 
-
+#define c_sext(a,num) (((sword_t)a<<num)>>num)
 def_EHelper(lui)
 {
   rtl_li(s, ddest, c_sext(id_src1->imm, 0));
