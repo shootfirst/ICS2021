@@ -1,20 +1,20 @@
 #include <isa.h>
-#define CSR_REG(csr_num) (cpu.csr[csr2idx(csr_num)]._32)
+// #define CSR_REG(csr_num) (cpu.csr[csr2idx(csr_num)]._32)
 
-static uint8_t csr2idx(uint32_t csr_num) {
-    switch (csr_num) 
-    {
-        case 0x305 : return 0;
-        case 0x342 : return 1;
-        case 0x300 : return 2;
-        case 0x341 : return 3;
-        case 0x180 : return 4;
-        case 0x340 : return 5;
-        default: 
-            panic("0x%x csr is not valid", csr_num);
-            return -1;
-    }
-}
+// static uint8_t csr2idx(uint32_t csr_num) {
+//     switch (csr_num) 
+//     {
+//         case 0x305 : return 0;
+//         case 0x342 : return 1;
+//         case 0x300 : return 2;
+//         case 0x341 : return 3;
+//         case 0x180 : return 4;
+//         case 0x340 : return 5;
+//         default: 
+//             panic("0x%x csr is not valid", csr_num);
+//             return -1;
+//     }
+// }
 
 def_EHelper(csrrw) {
   // // I:读后置位控制状态寄存器
