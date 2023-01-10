@@ -1,3 +1,4 @@
+/*
 // #include "../local-include/reg.h"
 // #include <cpu/ifetch.h>
 // #include <isa-all-instr.h>
@@ -216,7 +217,7 @@
 //   int idx = table_main(s);
 //   return idx;
 // }
-
+ */
 #include "../local-include/reg.h"
 #include <cpu/ifetch.h>
 #include <isa-all-instr.h>
