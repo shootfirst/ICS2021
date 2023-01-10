@@ -65,20 +65,6 @@ static def_DHelper(B) {
   decode_op_i(s, id_src2, simm, false);
   decode_op_r(s, id_dest, s->isa.instr.b.rs2, false);
 }
-
-// static def_DHelper(B) {
-//   decode_op_r(s, id_src1, s->isa.instr.b.rs1, false);
-//   decode_op_r(s, id_src2, s->isa.instr.b.rs2, false);
-//   word_t offset = c_sll(s->isa.instr.b.imm11, 11)
-//                 |
-//                  c_sll(s->isa.instr.b.imm4_1, 1)
-//                 |
-//                  c_sll(s->isa.instr.b.imm10_5, 5)
-//                 |
-//                  c_sll(s->isa.instr.b.imm12, 12)
-//           ;
-//   decode_op_i(s, id_dest, offset, false);
-// }
 //************************************pa2*******************************************
 
 
@@ -188,10 +174,15 @@ def_THelper(branch) {
   def_INSTR_TAB("??????? ????? ????? 111 ????? ????? ??", bgeu);
   return EXEC_ID_inv;
 }
-
-
-
 //************************************pa2*******************************************
+def_THelper(csr) {
+  def_INSTR_TAB("??????? ????? ????? 010 ????? ????? ??", csrrs);
+  // def_INSTR_TAB("0000000 00000 00000 000 00000 ????? ??", ecall);
+  return EXEC_ID_inv;
+}
+//************************************pa3*******************************************
+
+//************************************pa3*******************************************
 
 def_THelper(main) {
   def_INSTR_IDTAB("??????? ????? ????? ??? ????? 00000 11", I     , load);
@@ -208,6 +199,10 @@ def_THelper(main) {
   def_INSTR_IDTAB("??????? ????? ????? ??? ????? 01100 11", R     , calculate);
   def_INSTR_IDTAB("??????? ????? ????? ??? ????? 11000 11", B     , branch);
   //************************************pa2*******************************************
+
+  //************************************pa3*******************************************
+  def_INSTR_IDTAB("??????? ????? ????? ??? ????? 11100 11", I     , csr);
+  //************************************pa3*******************************************
   return table_inv(s);
 };
 
