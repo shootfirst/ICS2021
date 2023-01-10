@@ -16,14 +16,14 @@ static uint8_t csr2idx(uint32_t csr_num) {
     }
 }
 
-def_EHelper(csrrs) {
-  // I:读后置位控制状态寄存器
-  // 记控制状态寄存器csr中的值为t，把t和五位0扩展的立即数按位与的结结果写入csr，再把t的值写入rd，csr的第5位及更高位保持不变（立即数只有5位）
+def_EHelper(csrrw) {
+  // // I:读后置位控制状态寄存器
+  // // 记控制状态寄存器csr中的值为t，把t和五位0扩展的立即数按位与的结结果写入csr，再把t的值写入rd，csr的第5位及更高位保持不变（立即数只有5位）
 
-  // 获取特定csr寄存器的值，存入s0
-  rtl_mv(s, s0, &CSR_REG(id_src2->imm));
-  // 把t和五位0扩展的立即数按位与的结结果写入csr
-  rtl_or(s, &CSR_REG(id_src2->imm), s0, dsrc1);
-  // 再把t的值写入rd
-  rtl_mv(s, ddest, s0);
+  // // 获取特定csr寄存器的值，存入s0
+  // rtl_mv(s, s0, &CSR_REG(id_src2->imm));
+  // // 把t和五位0扩展的立即数按位与的结结果写入csr
+  // rtl_or(s, &CSR_REG(id_src2->imm), s0, dsrc1);
+  // // 再把t的值写入rd
+  // rtl_mv(s, ddest, s0);
 }
