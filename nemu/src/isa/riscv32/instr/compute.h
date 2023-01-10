@@ -4,7 +4,7 @@
 
 // //***********************************pa2*************************************
 // // 符号位扩展宏
-// #define sym_ext(a,num) (((sword_t)a<<num)>>num)
+#define sym_ext(a,num) (((sword_t)a<<num)>>num)
 
 // def_EHelper(addi) {
 //   // I:把符号位扩展的立即数和rs1相加写入rd
