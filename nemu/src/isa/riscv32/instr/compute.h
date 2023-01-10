@@ -338,22 +338,19 @@ def_EHelper(auipc) {
 }
 
 def_EHelper(jal) {
+  // J:将pc+4的值放入目的寄存器，将pc值设为当前值+符号位扩展的立即数
   rtl_addi(s, ddest, &s->pc, 4);
-  rtl_addi(s, &s->dnpc, &s->pc, id_src1->imm);
-  stack_call(s->pc, s->dnpc);
+  rtl_addi(s, &s->dnpc, &s->pc, sym_ext(id_src1->imm, 11));
 }
 
 def_EHelper(jalr) {
+  // I:把pc+4写入rd，把pc设为rs1+符号位扩展的立即数，并且把最低位设为1
   rtl_addi(s, s0, &s->pc, 4);
-  rtl_addi(s, &s->dnpc, dsrc1, id_src2->imm);
+  rtl_addi(s, &s->dnpc, dsrc1, sym_ext(id_src2->imm, 20));
   rtl_andi(s, &s->dnpc, &s->dnpc, ~1);
   rtl_addi(s, ddest, s0, 0);
-  if (s->isa.instr.i.rd == 0 && s->isa.instr.i.rs1 == 1 && s->isa.instr.i.simm11_0 == 0){//Ret
-    stack_return(s->pc, s->dnpc);
-  }else{
-    stack_call(s->pc, s->dnpc);
-  }
 }
+
 
 
 
