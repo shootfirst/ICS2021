@@ -4,10 +4,10 @@
 #include <common.h>
 
 //*******************************pa3**********************************
-#define MEPC_ID 0x341
-#define MSTATUS_ID 0x300
-#define MCAUSE_ID 0x342
-#define MTVEC_ID 0x305
+#define MEPC_CODE 0x341
+#define MSTATUS_CODE 0x300
+#define MCAUSE_CODE 0x342
+#define MTVEC_CODE 0x305
 
 #define MEPC_IDX 0
 #define MSTATUS_IDX 1

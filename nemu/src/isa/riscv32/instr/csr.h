@@ -4,10 +4,10 @@
 static uint8_t csr2idx(uint32_t csr_num) {
     switch (csr_num) 
     {
-        case MEPC_ID : return MEPC_IDX;
-        case MSTATUS_ID : return MSTATUS_IDX;
-        case MCAUSE_ID : return MCAUSE_IDX;
-        case MTVEC_ID : return MTVEC_IDX;
+        case MEPC_CODE : return MEPC_IDX;
+        case MSTATUS_CODE : return MSTATUS_IDX;
+        case MCAUSE_CODE : return MCAUSE_IDX;
+        case MTVEC_CODE : return MTVEC_IDX;
         default: 
             panic("0x%x csr is not valid", csr_num);
             return -1;
