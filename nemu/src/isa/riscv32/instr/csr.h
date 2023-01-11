@@ -82,3 +82,11 @@ def_EHelper(ecall)
   word_t trap_vec = isa_raise_intr(trap_no, s->snpc);
   rtl_j(s, trap_vec);
 }
+
+def_EHelper(csrrs)
+{
+  // difftest_skip_ref();
+  rtl_mv(s, s0, &csr(id_src2->imm));
+  rtl_or(s, &csr(id_src2->imm), s0, id_src1->preg);
+  rtl_mv(s, id_dest->preg, s0);
+}
