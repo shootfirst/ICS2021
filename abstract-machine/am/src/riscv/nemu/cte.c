@@ -8,6 +8,12 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
+      //*********************************pa3*************************************
+      #define MACHINE_SOFTWARE_INTERRUPT 11
+      case MACHINE_SOFTWARE_INTERRUPT: 
+        ev.event = EVENT_YIELD;
+        break;
+      //*********************************pa3*************************************
       default: ev.event = EVENT_ERROR; break;
     }
 

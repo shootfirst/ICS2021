@@ -2,6 +2,12 @@
 
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
+    //********************************pa3*********************************
+    case EVENT_YIELD: 
+      printf("yes, yield\n");
+      break;
+      
+    //********************************pa3*********************************
     default: panic("Unhandled event ID = %d", e.event);
   }
 

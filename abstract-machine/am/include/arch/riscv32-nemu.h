@@ -3,6 +3,41 @@
 
 struct Context {
   // TODO: fix the order of these members to match trap.S
+  //******************************************pa3***********************************************
+  // uint64_t x0; // x0恒为0
+  uintptr_t x1;
+  uintptr_t x2;
+  uintptr_t x3;
+  uintptr_t x4;
+  uintptr_t x5;
+  uintptr_t x6;
+  uintptr_t x7;
+  uintptr_t x8;
+  uintptr_t x9;
+  uintptr_t x10;
+  uintptr_t x11;
+  uintptr_t x12;
+  uintptr_t x13;
+  uintptr_t x14;
+  uintptr_t x15;
+  uintptr_t x16;
+  uintptr_t x17;
+  uintptr_t x18;
+  uintptr_t x19;
+  uintptr_t x20;
+  uintptr_t x21;
+  uintptr_t x22;
+  uintptr_t x23;
+  uintptr_t x24;
+  uintptr_t x25;
+  uintptr_t x26;
+  uintptr_t x27;
+  uintptr_t x28;
+  uintptr_t x29;
+  uintptr_t x30;
+  uintptr_t x31;
+
+  //******************************************pa3***********************************************
   uintptr_t mepc, mcause, gpr[32], mstatus;
   void *pdir;
 };
