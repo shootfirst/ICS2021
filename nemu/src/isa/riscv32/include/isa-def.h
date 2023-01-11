@@ -3,6 +3,17 @@
 
 #include <common.h>
 
+//*******************************pa3**********************************
+#define MEPC_ID 0x341
+#define MSTATUS_ID 0x300
+#define MCAUSE_ID 0x342
+#define MTVEC_ID 0x305
+
+#define MEPC_IDX 0
+#define MSTATUS_IDX 1
+#define MCAUSE_IDX 2
+#define MTVEC_IDX 3
+//*******************************pa3**********************************
 typedef struct {
   struct {
     rtlreg_t _32;
@@ -10,10 +21,11 @@ typedef struct {
   
   //*******************************pa3**********************************
   //csr寄存器
+  // 0: mepc 1:mstatus 2:mcause 3:mtvec
   struct
   {
     rtlreg_t _32;
-  } csr[6];
+  } csr[4];
   //*******************************pa3**********************************
 
   vaddr_t pc;
