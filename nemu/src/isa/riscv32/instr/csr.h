@@ -49,7 +49,7 @@ def_EHelper(csrrs) {
 
 def_EHelper(mret) {
   // I:机器模式异常返回
-  rtl_j(s, cpu.csr[MEPC_ID]._32);
+  rtl_j(s, cpu.csr[MEPC_IDX]._32);
 }
 
 
