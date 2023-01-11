@@ -17,6 +17,6 @@
                 f(bltu) \
                 f(divu) \
                 f(bgeu) f(ori) \
-                f(csrrw) f(ecall) f(csrrs)
+                f(csrrw) f(ecall) f(csrrs) f(mret)
 
 def_all_EXEC_ID();

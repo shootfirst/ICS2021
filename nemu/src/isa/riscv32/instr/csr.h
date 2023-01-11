@@ -47,4 +47,9 @@ def_EHelper(csrrs) {
   rtl_mv(s, ddest, s0);
 }
 
+def_EHelper(mret) {
+  // I:机器模式异常返回
+  rtl_j(s, cpu.csr[MEPC_ID]._32);
+}
+
 
