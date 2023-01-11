@@ -73,7 +73,7 @@ def_EHelper(csrrw)
 def_EHelper(ecall)
 {
   bool success = false;
-  word_t trap_no = isa_reg_str2val("$a7", &success);
+  word_t trap_no = isa_reg_str2val("a7", &success);
   // Log("ecal");
   // Log("trap number is %d\n",trap_no);
   // Log("trap number is %d\n", trap_no);
