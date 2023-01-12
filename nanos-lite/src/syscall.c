@@ -49,15 +49,15 @@ void sys_write(Context *c) {
   
   switch (fd) {
     case STD_OUT ... STD_ERR:
-    char *out = buf;
-    for (int i = 0; i < count; ++i)
-    {
-      putch(out[i]);
-    }
+      char *out = buf;
+      for (int i = 0; i < count; ++i)
+      {
+        putch(out[i]);
+      }
+      break;
     default: panic("unknown fd = %d", fd);
   }
-  // 返回值设为0
-  c->GPRx = 0;
+  c->GPRx = count;
 }
 //*****************************pa3**********************************
 
