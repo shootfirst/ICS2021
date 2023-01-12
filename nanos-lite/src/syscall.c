@@ -2,6 +2,10 @@
 #include "syscall.h"
 
 //******************************pa3********************************
+void sys_exit(Context *c){
+  // exit((int)c->GPR2);
+  // c->GPRx = 0;
+}
 void sys_yield(Context *c){
   yield();
   c->GPRx = 0;
@@ -18,6 +22,9 @@ void do_syscall(Context *c) {
 
   switch (a[0]) {
     //*******************************pa3*************************************
+    case SYS_exit:
+      sys_exit(c);
+      break;
     case SYS_yield:
       sys_yield(c);
       break;
