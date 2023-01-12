@@ -10,9 +10,9 @@ Context* __am_irq_handle(Context *c) {
     switch (c->mcause) {
       //*********************************pa3*************************************
       case 11:
-        if (c->GPR1 == -1){ // 特指-1
+        if (c->GPR1 == -1) { 
           ev.event = EVENT_YIELD;
-        }else {
+        } else {
           ev.event = EVENT_SYSCALL;
         }
         break;
