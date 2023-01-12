@@ -9,9 +9,5 @@
 extern int _syscall_(int, uintptr_t, uintptr_t, uintptr_t);
 
 int main() {
-  printf("ggg1\n");
-  int ans = _syscall_(SYS_yield, 0, 0, 0);
-  printf("ggg2\n");
-  return ans;
-  // return _syscall_(SYS_yield, 0, 0, 0);
+  return _syscall_(SYS_yield, 0, 0, 0);
 }
