@@ -14,6 +14,7 @@ Context* __am_irq_handle(Context *c) {
         if (c->GPR1 == -1){ // 特指-1
           ev.event = EVENT_YIELD;
         }else {
+          printf("syscallllllllllllllllllllllllllllllllllll\n");
           ev.event = EVENT_SYSCALL;
         }
         break;
