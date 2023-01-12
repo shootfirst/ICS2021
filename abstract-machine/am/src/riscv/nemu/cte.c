@@ -7,6 +7,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
+    printf("%d\n", c->mcause);
     switch (c->mcause) {
       //*********************************pa3*************************************
       #define MACHINE_SOFTWARE_INTERRUPT 11
