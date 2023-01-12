@@ -50,7 +50,7 @@ void sys_write(Context *c) {
   switch (fd) {
     case STD_OUT ... STD_ERR:
       char *out = buf;
-      printf("count %d\n", count);
+      // printf("count %d\n", count);
       for (int i = 0; i < count; ++i)
       {
         putch(out[i]);
