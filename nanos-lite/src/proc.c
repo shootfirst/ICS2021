@@ -19,13 +19,19 @@ void hello_fun(void *arg) {
   }
 }
 
+//*********************************pa3**********************************
+void naive_uload(PCB *pcb, const char *filename);
+//*********************************pa3**********************************
+
 void init_proc() {
   switch_boot_pcb();
 
   Log("Initializing processes...");
 
   // load program here
-
+  //******************************pa3*********************************
+  naive_uload(NULL, NULL);
+  //******************************pa3*********************************
 }
 
 Context* schedule(Context *prev) {
