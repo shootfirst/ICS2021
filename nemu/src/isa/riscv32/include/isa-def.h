@@ -4,6 +4,7 @@
 #include <common.h>
 
 //*******************************pa3**********************************
+// https://five-embeddev.com/quickref/csrs.html
 #define MEPC_CODE 0x341
 #define MSTATUS_CODE 0x300
 #define MCAUSE_CODE 0x342

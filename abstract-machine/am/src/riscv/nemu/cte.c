@@ -4,14 +4,21 @@
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
+//*********************************pa3*************************************
+#define MACHINE_SOFTWARE_INTERRUPT 11
+//*********************************pa3*************************************
+
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
       //*********************************pa3*************************************
-      case 11:
+      // 由ecall指引起的trap
+      case MACHINE_SOFTWARE_INTERRUPT:
+        // 若a7寄存器值为-1，表示yield
         if (c->GPR1 == -1) { 
           ev.event = EVENT_YIELD;
+        // 否则是系统调用
         } else {
           ev.event = EVENT_SYSCALL;
         }

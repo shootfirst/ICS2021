@@ -1,3 +1,4 @@
+//**************************************pa3****************************************
 #include <isa.h>
 #define CSR_REG(csr_num) (cpu.csr[csr2idx(csr_num)]._32)
 
@@ -29,7 +30,7 @@ def_EHelper(csrrw) {
 #define MACHINE_SOFTWARE_INTERRUPT 11
 def_EHelper(ecall) {
   // I:环境调用
-  // 在状态为U情况下，将下一指令地址值保存在mepc寄存器，设置异常号于mcause寄存器中
+  // 在状态为S情况下，将'下一指令地址'值保存在mepc寄存器，设置异常号于mcause寄存器中，在S状态下，由ecall引起的陷入mcause值为11
   word_t trapvec = isa_raise_intr(MACHINE_SOFTWARE_INTERRUPT, s->snpc);
   // 从mtvec寄存器取出异常处理程序地址，跳转到该地址处执行异常处理
   rtl_j(s, trapvec);
@@ -51,5 +52,5 @@ def_EHelper(mret) {
   // I:机器模式异常返回
   rtl_j(s, cpu.csr[MEPC_IDX]._32);
 }
-
+//**************************************pa3****************************************
 
