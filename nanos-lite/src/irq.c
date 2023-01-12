@@ -1,5 +1,9 @@
 #include <common.h>
 
+//*******************************pa3*************************************
+void do_syscall(Context *c);
+//*******************************pa3*************************************
+
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     //********************************pa3*********************************
@@ -8,7 +12,7 @@ static Context* do_event(Event e, Context* c) {
       break;
     
     case EVENT_SYSCALL:
-      printf("yes, syscall\n");
+      do_syscall(c);
       break;
     //********************************pa3*********************************
     default: panic("Unhandled event ID = %d", e.event);
