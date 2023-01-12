@@ -8,7 +8,7 @@ void call_main(uintptr_t *args) {
   char *empty[] =  {NULL };
   environ = empty;
   main(0, empty, empty);
-  exit(0);
+  printf("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n");
   // exit(main(0, empty, empty));
   assert(0);
 }
