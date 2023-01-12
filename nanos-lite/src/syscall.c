@@ -3,6 +3,32 @@
 
 
 //******************************pa3********************************
+#define STD_IN 0    //标准输入
+#define STD_OUT 1   //标准输出
+#define STD_ERR 2   //错误输出
+enum {
+  SYS_exit,
+  SYS_yield,
+  SYS_open,
+  SYS_read,
+  SYS_write,
+  SYS_kill,
+  SYS_getpid,
+  SYS_close,
+  SYS_lseek,
+  SYS_brk,
+  SYS_fstat,
+  SYS_time,
+  SYS_signal,
+  SYS_execve,
+  SYS_fork,
+  SYS_link,
+  SYS_unlink,
+  SYS_wait,
+  SYS_times,
+  SYS_gettimeofday
+};
+
 void halt(int code);
 void sys_exit(Context *c) {
   halt(c->GPR2);
@@ -13,10 +39,26 @@ void sys_yield(Context *c) {
   // 返回值设为0
   c->GPRx = 0;
 }
-enum {
-  SYS_exit,
-  SYS_yield,
-};
+
+void sys_write(Context *c) {
+  // 获取参数
+  int fd = (int)c->GPR2;
+  void *buf = (void*)c->GPR3;
+  size_t count = (size_t)c->GPR4;
+
+  
+  switch (fd) {
+    case STD_OUT: case STD_ERR:
+    char *out = buf;
+    for (int i = 0; i < count; ++i)
+    {
+      putch(out[i]);
+    }
+    default: panic("unknown fd = %d", fd);
+  }
+  // 返回值设为0
+  c->GPRx = 0;
+}
 //*****************************pa3**********************************
 
 void do_syscall(Context *c) {
