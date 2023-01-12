@@ -11,13 +11,7 @@ Context* __am_irq_handle(Context *c) {
       //*********************************pa3*************************************
       #define MACHINE_SOFTWARE_INTERRUPT 11
       case MACHINE_SOFTWARE_INTERRUPT: 
-        if (c->GPR1 == -1){ // 特指-1
-        printf("yyyyyyyyyyyyyyyyyyyieldddddddddddddddd\n");
-          ev.event = EVENT_YIELD;
-        }else {
-          printf("syscallllllllllllllllllllllllllllllllllll\n");
-          ev.event = EVENT_SYSCALL;
-        }
+        ev.event = EVENT_YIELD;
         break;
       //*********************************pa3*************************************
       default: ev.event = EVENT_ERROR; break;
