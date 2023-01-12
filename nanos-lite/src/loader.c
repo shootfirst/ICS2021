@@ -69,12 +69,12 @@
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   
-  Elf_Ehdr elf_header;
+  Elf32_Ehdr elf_header;
   ramdisk_read(&elf_header, 0, sizeof(elf_header));
   //根据小端法 0x7F E L F
   assert(*(uint32_t *)elf_header.e_ident == 0x464c457f);
   
-  uint32_t program_header_offset = elf_header.e_phoff;
+  Elf32_Off program_header_offset = elf_header.e_phoff;
   size_t headers_entry_size = elf_header.e_phentsize;
   int headers_entry_num = elf_header.e_phnum;
 
