@@ -4,7 +4,7 @@
 //******************************pa3********************************
 void halt(int code);
 void sys_exit(Context *c){
-  halt(0);
+  halt(1);
 }
 void sys_yield(Context *c){
   yield();
