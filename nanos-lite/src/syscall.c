@@ -2,9 +2,9 @@
 #include "syscall.h"
 
 //******************************pa3********************************
+void halt(int code);
 void sys_exit(Context *c){
-  // exit((int)c->GPR2);
-  // c->GPRx = 0;
+  halt(0);
 }
 void sys_yield(Context *c){
   yield();
