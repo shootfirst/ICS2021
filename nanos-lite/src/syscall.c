@@ -48,7 +48,7 @@ void sys_write(Context *c) {
 
   
   switch (fd) {
-    case STD_OUT: case STD_ERR:
+    case STD_OUT ... STD_ERR:
     char *out = buf;
     for (int i = 0; i < count; ++i)
     {
