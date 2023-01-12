@@ -1,51 +1,72 @@
+// #ifndef ARCH_H__
+// #define ARCH_H__
+
+// struct Context {
+//   // TODO: fix the order of these members to match trap.S
+//   //******************************************pa3***********************************************
+//   // uint64_t x0; // x0恒为0
+//   // uintptr_t x1;
+//   // uintptr_t x2;
+//   // uintptr_t x3;
+//   // uintptr_t x4;
+//   // uintptr_t x5;
+//   // uintptr_t x6;
+//   // uintptr_t x7;
+//   // uintptr_t x8;
+//   // uintptr_t x9;
+//   // uintptr_t x10;
+//   // uintptr_t x11;
+//   // uintptr_t x12;
+//   // uintptr_t x13;
+//   // uintptr_t x14;
+//   // uintptr_t x15;
+//   // uintptr_t x16;
+//   // uintptr_t x17;
+//   // uintptr_t x18;
+//   // uintptr_t x19;
+//   // uintptr_t x20;
+//   // uintptr_t x21;
+//   // uintptr_t x22;
+//   // uintptr_t x23;
+//   // uintptr_t x24;
+//   // uintptr_t x25;
+//   // uintptr_t x26;
+//   // uintptr_t x27;
+//   // uintptr_t x28;
+//   // uintptr_t x29;
+//   // uintptr_t x30;
+//   // uintptr_t x31;
+//   uintptr_t gpr[32];
+
+//   //******************************************pa3***********************************************
+//   uintptr_t mepc, mcause, gpr[32], mstatus;
+//   void *pdir;
+// };
+
+// #define GPR1 gpr[17] // a7
+// #define GPR2 gpr[0]
+// #define GPR3 gpr[0]
+// #define GPR4 gpr[0]
+// #define GPRx gpr[0]
+
+// #endif
+
+
 #ifndef ARCH_H__
 #define ARCH_H__
 
 struct Context {
   // TODO: fix the order of these members to match trap.S
-  //******************************************pa3***********************************************
-  // uint64_t x0; // x0恒为0
-  uintptr_t x1;
-  uintptr_t x2;
-  uintptr_t x3;
-  uintptr_t x4;
-  uintptr_t x5;
-  uintptr_t x6;
-  uintptr_t x7;
-  uintptr_t x8;
-  uintptr_t x9;
-  uintptr_t x10;
-  uintptr_t x11;
-  uintptr_t x12;
-  uintptr_t x13;
-  uintptr_t x14;
-  uintptr_t x15;
-  uintptr_t x16;
-  uintptr_t x17;
-  uintptr_t x18;
-  uintptr_t x19;
-  uintptr_t x20;
-  uintptr_t x21;
-  uintptr_t x22;
-  uintptr_t x23;
-  uintptr_t x24;
-  uintptr_t x25;
-  uintptr_t x26;
-  uintptr_t x27;
-  uintptr_t x28;
-  uintptr_t x29;
-  uintptr_t x30;
-  uintptr_t x31;
-
-  //******************************************pa3***********************************************
-  uintptr_t mepc, mcause, gpr[32], mstatus;
+  uintptr_t gpr[32];
+  uintptr_t mcause, mstatus, mepc;
   void *pdir;
 };
 
+// "a7", "a0", "a1", "a2", "a0"
 #define GPR1 gpr[17] // a7
-#define GPR2 gpr[0]
-#define GPR3 gpr[0]
-#define GPR4 gpr[0]
-#define GPRx gpr[0]
+#define GPR2 gpr[10] //a0
+#define GPR3 gpr[11] //a1
+#define GPR4 gpr[12] //a2
+#define GPRx gpr[10] //a0
 
 #endif
