@@ -63,7 +63,10 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
   //******************************************pa3******************************************
   AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
-  file_table[5].size = gpu_config.width * gpu_config.height * sizeof(uint32_t);
+  int gpu_fd = fs_open("/dev/fb", 0, 0);
+  file_table[gpu_fd].size = gpu_config.width * gpu_config.height * sizeof(uint32_t);
+  fs_close(gpu_fd);
+  printf("gpusize: %d * %d = %d\n", gpu_config.width, gpu_config.height, file_table[gpu_fd].size);
   //******************************************pa3******************************************
 }
 
