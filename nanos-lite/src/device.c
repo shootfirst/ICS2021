@@ -42,48 +42,27 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   //*********************************pa3*************************************
-  // AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
-  // int width = gpu_config.width;
-  // int height = gpu_config.height;
+  AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
+  int width = gpu_config.width;
+  int height = gpu_config.height;
 
-  // char res[64];
-  // memset(res, 0, 64);
+  char res[64];
+  memset(res, 0, 64);
 
-  // sprintf(res, "width:%d, height:%d", width, height);
-  // size_t real_len = strlen(res);
-  // if (len < real_len) {
-  //   return 0;
-  // }
-
-  // strcpy(buf, res);
-  // return real_len;
-
-  if (offset > 0){
+  sprintf(res, "width:%d, height:%d", width, height);
+  size_t real_len = strlen(res);
+  if (len < real_len) {
     return 0;
   }
 
-  int w = io_read(AM_GPU_CONFIG).width;
-  int h = io_read(AM_GPU_CONFIG).height;
-
-  int ret = snprintf(buf, len, "WIDTH:%d\nHEIGHT:%d", w, h);
-  Log("%s", (char *)buf);
-  if (ret >= len){
-    assert(0);
-  }
-
-  return ret + 1;
+  strcpy(buf, res);
+  return real_len;
   //*********************************pa3*************************************
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   //*********************************pa3*************************************
-  uintptr_t *ptr;
-  ptr = (uintptr_t *)(&buf);
-
-  io_write(AM_GPU_MEMCPY, offset, (void *)*ptr, len);
-  io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true);
-  
-  return len;
+  return 0;
   //*********************************pa3*************************************
 }
 
