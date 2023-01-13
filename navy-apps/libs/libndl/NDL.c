@@ -7,7 +7,7 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include <assert.h>
-static int canvas_w, canvas_h;
+static int canvas_x = 0, canvas_y = 0;
 //********************************pa3**********************************
 static int evtdev = -1;
 static int fbdev = -1;
@@ -33,7 +33,17 @@ int NDL_PollEvent(char *buf, int len) {
 
 void NDL_OpenCanvas(int *w, int *h) {
   //*********************************pa3**************************************
-  
+  // 画布大小不能超出屏幕大小
+  if (*w == 0){
+    *w = screen_w;
+  }else if(*w > screen_w){
+    assert(0);
+  }
+  if (*h == 0){
+    *h = screen_h;
+  }else if(*h > screen_h){
+    assert(0);
+  }
   //*********************************pa3**************************************
   if (getenv("NWM_APP")) {
     int fbctl = 4;
@@ -56,7 +66,17 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //*************************************pa3*****************************************
+  if (w == 0 && h == 0) {
+    w = screen_w;
+    h = screen_h;
+  }
+
+  int graphics = open("/dev/fb", O_RDWR);
   
+  for (int i = 0; i < h; ++i){
+    lseek(graphics, ((canvas_y + y + i) * screen_w + (canvas_x + x)) * sizeof(uint32_t), SEEK_SET);
+    ssize_t s = write(graphics, pixels + w * i, w * sizeof(uint32_t));
+  }
   //*************************************pa3*****************************************
 }
 
@@ -74,9 +94,9 @@ int NDL_Init(uint32_t flags) {
   // 格式： 宽度,高度
   char *width = strtok(width_height, ",");
   char *height = width_height + strlen(width_height) + 1;
-  sscanf(width, "%d", &canvas_w);
-  sscanf(height, "%d", &canvas_h);
-  printf("width:%d, height:%d\n", canvas_w, canvas_h);
+  sscanf(width, "%d", &screen_w);
+  sscanf(height, "%d", &screen_h);
+  printf("width:%d, height:%d\n", screen_w, screen_h);
   //*****************************pa3*********************************
   return 0;
 }
