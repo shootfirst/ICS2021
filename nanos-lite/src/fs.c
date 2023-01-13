@@ -50,11 +50,11 @@ static Finfo file_table[] __attribute__((used)) = {
   
   // 文件
   {"/bin/hello", 33424, 400143, NULL, NULL},
-{"/bin/event-test", 58784, 433567, NULL, NULL},
-{"/bin/time-test", 58760, 492351, NULL, NULL},
-{"/bin/file-test", 48328, 551111, NULL, NULL},
-{"/bin/dummy", 29068, 599439, NULL, NULL},
-{"/bin/bmp-test", 62908, 628507, NULL, NULL},
+{"/bin/event-test", 57996, 433567, NULL, NULL},
+{"/bin/time-test", 57996, 491563, NULL, NULL},
+{"/bin/file-test", 48328, 549559, NULL, NULL},
+{"/bin/dummy", 29068, 597887, NULL, NULL},
+{"/bin/bmp-test", 58184, 626955, NULL, NULL},
   //******************************************pa3******************************************
 #include "files.h"
 };
@@ -66,7 +66,6 @@ void init_fs() {
   int gpu_fd = fs_open("/dev/fb", 0, 0);
   file_table[gpu_fd].size = gpu_config.width * gpu_config.height * sizeof(uint32_t);
   fs_close(gpu_fd);
-  printf("gpusize: %d * %d = %d\n", gpu_config.width, gpu_config.height, file_table[gpu_fd].size);
   //******************************************pa3******************************************
 }
 
