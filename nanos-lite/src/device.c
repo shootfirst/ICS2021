@@ -25,7 +25,19 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  //*********************************pa3***************************************
+  AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
+  if (AM_KEY_NONE == kbd.keycode) {
+    return 0;
+  }
+  char res[64];
+  memset(res, 0, 64);
+  assert(sprintf(res, "Got  (kbd): %s (%d) %s\n", keyname[kbd.keycode], kbd.keycode, kbd.keydown ? "DOWN" : "UP") <= 64);
+  size_t real_len = strlen(res);
+  strcpy(buf, res);
+  return real_len;
+
+  //*********************************pa3***************************************
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {

@@ -5,6 +5,7 @@
 #include <unistd.h>
 //********************************pa3**********************************
 #include <sys/time.h>
+#include <fcntl.h>
 //********************************pa3**********************************
 static int evtdev = -1;
 static int fbdev = -1;
@@ -20,7 +21,12 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  return 0;
+  //********************************pa3**********************************
+  int fd = open("/dev/events", 0, 0);
+  size_t read_len = read(fd, buf, len);
+  close(fd);
+  return read_len != 0;
+  //********************************pa3**********************************
 }
 
 void NDL_OpenCanvas(int *w, int *h) {

@@ -29,19 +29,30 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 
 //**************************************pa3******************************************
 size_t serial_write(const void *buf, size_t offset, size_t len);
+size_t events_read(void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len);
 //**************************************pa3******************************************
 
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   //******************************************pa3******************************************
+  // 标准输入输出
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
 
+  // 设备（键盘，显示器）
+  {"/dev/events", 0, 0, events_read, NULL}, //键盘，只支持读
+  {"/dev/fb", 0, 0, NULL, fb_write}, //显示器
+  {"/proc/dispinfo", 0, 0, dispinfo_read, NULL}, //显示器尺寸信息
+  
+  // 文件
   {"/bin/hello", 33424, 400143, NULL, NULL},
-  {"/bin/time-test", 42952, 433567, NULL, NULL},
-  {"/bin/file-test", 48328, 476519, NULL, NULL},
-  {"/bin/dummy", 29068, 524847, NULL, NULL},
+  {"/bin/event-test", 43076, 433567, NULL, NULL},
+  {"/bin/time-test", 43076, 476643, NULL, NULL},
+  {"/bin/file-test", 48328, 519719, NULL, NULL},
+  {"/bin/dummy", 29068, 568047, NULL, NULL},
   //******************************************pa3******************************************
 #include "files.h"
 };
