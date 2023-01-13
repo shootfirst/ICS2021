@@ -7,7 +7,7 @@
 #include <sys/time.h>
 #include <fcntl.h>
 #include <assert.h>
-static int canvas_w, canvas_h, canvas_x = 0, canvas_y = 0;
+static int canvas_w, canvas_h;
 //********************************pa3**********************************
 static int evtdev = -1;
 static int fbdev = -1;
@@ -73,8 +73,11 @@ int NDL_Init(uint32_t flags) {
   // 格式： 宽度,高度
   char *width = strtok(width_height, ",");
   char *height = width_height + strlen(width_height) + 1;
-  printf("width:%s, height:%s\n", width, height);
 
+  sscanf(width, "%d", &canvas_w);
+  sscanf(height, "%d", &canvas_h);
+
+  printf("width:%d, height:%d\n", canvas_w, canvas_h);
   
   //*****************************pa3*********************************
   return 0;
