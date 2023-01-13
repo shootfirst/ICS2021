@@ -70,7 +70,7 @@ void do_syscall(Context *c) {
   uintptr_t a[4];
   // 从a7获取系统调用id
   a[0] = c->GPR1;
-  printf("%d\n", a[0]);
+  // printf("%d\n", a[0]);
 
   switch (a[0]) {
     //*******************************pa3*************************************

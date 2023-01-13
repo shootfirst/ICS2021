@@ -76,22 +76,26 @@ int _write(int fd, void *buf, size_t count) {
 //   return (void *)-1;
 // }
 
+//*********************************************pa3*********************************************
+void *program_break = NULL;
 extern char end;
-void * program_break = NULL;
+//*********************************************pa3*********************************************
+
 void *_sbrk(intptr_t increment) {
-  if (program_break == NULL){// 初始化
-    program_break = &end;
+  //**************************************pa3**************************************
+  if (program_break == NULL) {
+    program_break = (void*)(&end);
   }
   void *old_program_break = program_break;
-  
-  int ret = _syscall_(SYS_brk, (intptr_t)(program_break + increment), 0, 0);
-  if (ret == 0){
-    program_break = program_break + increment;
-  }else {
-    assert(0);
-  }
-  
-  return old_program_break;
+  void *new_program_break = increment + program_break;
+  int ans = _syscall_(SYS_brk, new_program_break, 0, 0);
+
+  if (ans == 0) {
+    program_break = new_program_break;
+    return old_program_break;
+  } 
+  return (void *)-1;
+  //**************************************pa3**************************************
 }
 
 int _read(int fd, void *buf, size_t count) {
