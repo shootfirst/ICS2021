@@ -32,7 +32,8 @@ int NDL_PollEvent(char *buf, int len) {
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
-  //*********************************pa3********************************
+  //*********************************pa3**************************************
+  
   //*********************************pa3**************************************
   if (getenv("NWM_APP")) {
     int fbctl = 4;
@@ -73,12 +74,9 @@ int NDL_Init(uint32_t flags) {
   // 格式： 宽度,高度
   char *width = strtok(width_height, ",");
   char *height = width_height + strlen(width_height) + 1;
-
   sscanf(width, "%d", &canvas_w);
   sscanf(height, "%d", &canvas_h);
-
   printf("width:%d, height:%d\n", canvas_w, canvas_h);
-  
   //*****************************pa3*********************************
   return 0;
 }
