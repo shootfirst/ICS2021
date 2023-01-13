@@ -71,7 +71,7 @@ int _write(int fd, void *buf, size_t count) {
 
 void *_sbrk(intptr_t increment) {
   //**************************************pa3**************************************
-  // return _syscall_(SYS_brk, increment);
+  return _syscall_(SYS_brk, increment, 0, 0);
   //**************************************pa3**************************************
   return (void *)-1;
 }
