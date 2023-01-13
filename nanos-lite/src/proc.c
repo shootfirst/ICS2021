@@ -30,7 +30,7 @@ void init_proc() {
 
   // load program here
   //******************************pa3*********************************
-  naive_uload(NULL, "/bin/dummy");
+  naive_uload(NULL, "/bin/file-test");
   //******************************pa3*********************************
 }
 
