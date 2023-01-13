@@ -6,28 +6,28 @@
 #define STD_IN 0    //标准输入
 #define STD_OUT 1   //标准输出
 #define STD_ERR 2   //错误输出
-enum {
-  SYS_exit,
-  SYS_yield,
-  SYS_open,
-  SYS_read,
-  SYS_write,
-  SYS_kill,
-  SYS_getpid,
-  SYS_close,
-  SYS_lseek,
-  SYS_brk,
-  SYS_fstat,
-  SYS_time,
-  SYS_signal,
-  SYS_execve,
-  SYS_fork,
-  SYS_link,
-  SYS_unlink,
-  SYS_wait,
-  SYS_times,
-  SYS_gettimeofday
-};
+// enum {
+//   SYS_exit,
+//   SYS_yield,
+//   SYS_open,
+//   SYS_read,
+//   SYS_write,
+//   SYS_kill,
+//   SYS_getpid,
+//   SYS_close,
+//   SYS_lseek,
+//   SYS_brk,
+//   SYS_fstat,
+//   SYS_time,
+//   SYS_signal,
+//   SYS_execve,
+//   SYS_fork,
+//   SYS_link,
+//   SYS_unlink,
+//   SYS_wait,
+//   SYS_times,
+//   SYS_gettimeofday
+// };
 
 void halt(int code);
 void sys_exit(Context *c) {
@@ -70,7 +70,7 @@ void do_syscall(Context *c) {
   uintptr_t a[4];
   // 从a7获取系统调用id
   a[0] = c->GPR1;
-  printf("%d\n", a[0]);
+  // printf("%d\n", a[0]);
 
   switch (a[0]) {
     //*******************************pa3*************************************

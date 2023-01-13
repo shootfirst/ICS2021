@@ -84,6 +84,7 @@ extern char end;
 void *_sbrk(intptr_t increment) {
   //**************************************pa3**************************************
   if (program_break == NULL) {
+    // 注意end的用法
     program_break = (void*)(&end);
   }
   void *old_program_break = program_break;
