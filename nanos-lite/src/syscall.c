@@ -60,6 +60,13 @@ void sys_write(Context *c) {
   }
   c->GPRx = count;
 }
+
+// void sys_brk(Context *c) {
+//   // 获取参数
+//   int increment = (int)c->GPR2;
+//   current;
+//   c->GPRx = 0;
+// }
 //*****************************pa3**********************************
 
 void do_syscall(Context *c) {
@@ -79,6 +86,9 @@ void do_syscall(Context *c) {
     case SYS_write:
       sys_write(c);
       break;
+    // case SYS_brk:
+    //   sys_brk(c);
+    //   break;
     //*******************************pa3*************************************
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
