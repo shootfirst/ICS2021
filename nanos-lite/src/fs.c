@@ -39,8 +39,9 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
 
   {"/bin/hello", 33424, 400143, NULL, NULL},
-  {"/bin/file-test", 48328, 433567, NULL, NULL},
-  {"/bin/dummy", 29068, 481895, NULL, NULL},
+  {"/bin/time-test", 42952, 433567, NULL, NULL},
+  {"/bin/file-test", 48328, 476519, NULL, NULL},
+  {"/bin/dummy", 29068, 524847, NULL, NULL},
   //******************************************pa3******************************************
 #include "files.h"
 };

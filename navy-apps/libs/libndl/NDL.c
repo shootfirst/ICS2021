@@ -3,13 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+//********************************pa3**********************************
+#include <sys/time.h>
+//********************************pa3**********************************
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
 uint32_t NDL_GetTicks() {
-  return 0;
+  //********************************pa3**********************************
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  // 返回毫秒数
+  return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+  //********************************pa3**********************************
 }
 
 int NDL_PollEvent(char *buf, int len) {
