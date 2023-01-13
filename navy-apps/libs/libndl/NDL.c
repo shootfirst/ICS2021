@@ -22,13 +22,10 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   //********************************pa3**********************************
-  // int fd = open("/dev/events", 0, 0);
-  // size_t read_len = read(fd, buf, len);
-  // close(fd);
-  // return read_len != 0;
-  int fp = open("/dev/events", O_RDONLY);
-
-  return read(fp, buf, sizeof(char) * len);
+  int fd = open("/dev/events", 0, 0);
+  size_t read_len = read(fd, buf, len);
+  close(fd);
+  return read_len;
   //********************************pa3**********************************
 }
 
