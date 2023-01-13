@@ -30,7 +30,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if (AM_KEY_NONE == kbd.keycode) {
     return 0;
   }
-  printf("hehe\n");
   char res[64];
   memset(res, 0, 64);
   assert(sprintf(res, "Got  (kbd): %s (%d) %s\n", keyname[kbd.keycode], kbd.keycode, kbd.keydown ? "DOWN" : "UP") <= 64);
@@ -42,11 +41,35 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  //*********************************pa3*************************************
+  AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
+  int width = gpu_config.width;
+  int height = gpu_config.height;
+
+  char res[64];
+  memset(res, 0, 64);
+
+  sprintf(res, "width:%d, height:%d", width, height);
+  size_t real_len = strlen(res);
+  if (len < real_len) {
+    return 0;
+  }
+
+  strcpy(buf, res);
+  return real_len;
+  //*********************************pa3*************************************
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
-  return 0;
+  //*********************************pa3*************************************
+  uintptr_t *ptr;
+  ptr = (uintptr_t *)(&buf);
+
+  io_write(AM_GPU_MEMCPY, offset, (void *)*ptr, len);
+  io_write(AM_GPU_FBDRAW, 0, 0, NULL, 0, 0, true);
+  
+  return len;
+  //*********************************pa3*************************************
 }
 
 void init_device() {

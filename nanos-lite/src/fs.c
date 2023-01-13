@@ -44,15 +44,17 @@ static Finfo file_table[] __attribute__((used)) = {
 
   // 设备（键盘，显示器）
   {"/dev/events", 0, 0, events_read, NULL}, //键盘，只支持读
-  {"/dev/fb", 0, 0, NULL, fb_write}, //显示器
   {"/proc/dispinfo", 0, 0, dispinfo_read, NULL}, //显示器尺寸信息
+  {"/dev/fb", 0, 0, NULL, fb_write}, //显示器
+  
   
   // 文件
   {"/bin/hello", 33424, 400143, NULL, NULL},
-  {"/bin/event-test", 43076, 433567, NULL, NULL},
-  {"/bin/time-test", 43076, 476643, NULL, NULL},
-  {"/bin/file-test", 48328, 519719, NULL, NULL},
-  {"/bin/dummy", 29068, 568047, NULL, NULL},
+  {"/bin/event-test", 58840, 433567, NULL, NULL},
+  {"/bin/time-test", 58808, 492407, NULL, NULL},
+  {"/bin/file-test", 48328, 551215, NULL, NULL},
+  {"/bin/dummy", 29068, 599543, NULL, NULL},
+  {"/bin/bmp-test", 62956, 628611, NULL, NULL},
   //******************************************pa3******************************************
 #include "files.h"
 };
@@ -60,7 +62,8 @@ static Finfo file_table[] __attribute__((used)) = {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   //******************************************pa3******************************************
-
+  AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
+  file_table[FD_FB].size = gpu_config.width * gpu_config.height * sizeof(uint32_t);
   //******************************************pa3******************************************
 }
 
