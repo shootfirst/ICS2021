@@ -26,11 +26,12 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 
 size_t events_read(void *buf, size_t offset, size_t len) {
   //*********************************pa3***************************************
+  // AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
+  // if (AM_KEY_NONE == kbd.keycode) {
+  //   return 0;
+  // }
   AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
-  printf("aeae\n");
-  if (AM_KEY_NONE == kbd.keycode) {
-    return 0;
-  }
+  if (kbd.keycode == AM_KEY_NONE) return 0;
   printf("hehe\n");
   char res[64];
   memset(res, 0, 64);
