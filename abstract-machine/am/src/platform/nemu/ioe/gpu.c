@@ -41,27 +41,27 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   //***********************************pa2***********************************
   // 向从坐标(ctl->x, ctl->y)开始，绘制ctl->w * ctl->h的矩形图像. 图像像素按行优先方式存储在ctl->pixels中
   // 若ctl->sync为true, 则马上将帧缓冲中的内容同步到屏幕上，绘制到屏幕的方法就是将像素ctl->pixels拷贝到显存FB_ADDR指定位置
-  int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
-  int width = io_read(AM_GPU_CONFIG).width;
-  // 获取像素
-  uint32_t *pixels = ctl->pixels;
-  // 获取显存
-  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  // 防止越界！！！
-  uint32_t len = sizeof(uint32_t) * (w < width - x ? w : width - x);
-  int pos_pixels = 0;
-  for(int j = y; j < y + h; j++, pos_pixels += w){
-    // 二维数组类似fb + j * width + x
-    memcpy(fb + j * width + x, pixels + (pos_pixels), len);
-  }
-  // int win_weight = io_read(AM_GPU_CONFIG).width;  
+  // int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
+  // int width = io_read(AM_GPU_CONFIG).width;
+  // // 获取像素
+  // uint32_t *pixels = ctl->pixels;
+  // // 获取显存
   // uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  // uint32_t *pi = (uint32_t *)(uintptr_t)ctl->pixels;
-  // for (int i = 0; i < ctl->h; ++i){
-  //   for (int j = 0; j < ctl->w; ++j){
-  //     fb[(ctl->y) * win_weight + i * win_weight + ctl->x + j] = pi[i * (ctl->w) + j];
-  //   }
+  // // 防止越界！！！
+  // uint32_t len = sizeof(uint32_t) * (w < width - x ? w : width - x);
+  // int pos_pixels = 0;
+  // for(int j = y; j < y + h; j++, pos_pixels += w){
+  //   // 二维数组类似fb + j * width + x
+  //   memcpy(fb + j * width + x, pixels + (pos_pixels), len);
   // }
+  int win_weight = io_read(AM_GPU_CONFIG).width;  
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  uint32_t *pi = (uint32_t *)(uintptr_t)ctl->pixels;
+  for (int i = 0; i < ctl->h; ++i){
+    for (int j = 0; j < ctl->w; ++j){
+      fb[(ctl->y) * win_weight + i * win_weight + ctl->x + j] = pi[i * (ctl->w) + j];
+    }
+  }
   //***********************************pa2***********************************
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
