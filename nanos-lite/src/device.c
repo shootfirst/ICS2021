@@ -82,79 +82,69 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
 static AM_GPU_CONFIG_T gpu_config;
 static AM_GPU_FBDRAW_T gpu_fbdraw;
-#define NUM_LEN 32
-static char *__itoa(int num, char *buff)
-{
-  char tmp[NUM_LEN];
-  if (num == 0)
-  {
-    strcat(buff, "0");
-    return buff;
-  }
-
-  uint8_t i = 0;
-  while (num != 0)
-  {
-    tmp[i] = num % 10 + '0';
-    num /= 10;
-    i++;
-  }
-
-  for (int j = i - 1; j >= 0; --j)
-    buff[i - 1 - j] = tmp[j];
-  buff[i] = '\0';
-
-  return buff;
-}
-
-
-size_t dispinfo_read(void *buf, size_t offset, size_t len)
-{
-  // int width = gpu_config.width, height = gpu_config.height;
-
-  // char num_buf[NUM_LEN];
-  // // important: must strcpy! becuase buf may have some rubbish left!
-  // // strcat will remain them and past imformation behind....
-  // strcpy(buf, "WIDTH:");
-  // strcat(buf, __itoa(width, num_buf));
-  // strcat(buf, "\nHEIGHT:");
-  // strcat(buf, __itoa(height, num_buf));
-  // strcat(buf, "\n");
-  // return strlen((char *)buf);
-  int width = gpu_config.width, height = gpu_config.height;
-
-  char num_buf[NUM_LEN];
-  // important: must strcpy! becuase buf may have some rubbish left!
-  // strcat will remain them and past imformation behind....
-  memset(buf, 0, NUM_LEN);
-  strcat(buf, __itoa(width, num_buf));
-  strcat(buf, ",");
-  strcat(buf, __itoa(height, num_buf));
-  return strlen((char *)buf);
-}
-
-
-
-
-// size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-//   //*********************************pa3*************************************
-//   AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
-//   int width = gpu_config.width;
-//   int height = gpu_config.height;
-
-//   char res[64];
-//   memset(res, 0, 64);
-//   // 格式： 宽度,高度
-//   sprintf(res, "%d,%d", width, height);
-//   size_t real_len = strlen(res);
-//   if (len < real_len) {
-//     return 0;
+// #define NUM_LEN 32
+// static char *__itoa(int num, char *buff)
+// {
+//   char tmp[NUM_LEN];
+//   if (num == 0)
+//   {
+//     strcat(buff, "0");
+//     return buff;
 //   }
 
-//   strcpy(buf, res);
-//   return real_len;
-//   //*********************************pa3*************************************
+//   uint8_t i = 0;
+//   while (num != 0)
+//   {
+//     tmp[i] = num % 10 + '0';
+//     num /= 10;
+//     i++;
+//   }
+
+//   for (int j = i - 1; j >= 0; --j)
+//     buff[i - 1 - j] = tmp[j];
+//   buff[i] = '\0';
+
+//   return buff;
 // }
+
+
+// size_t dispinfo_read(void *buf, size_t offset, size_t len)
+// {
+//   int width = gpu_config.width, height = gpu_config.height;
+
+//   char num_buf[NUM_LEN];
+//   // important: must strcpy! becuase buf may have some rubbish left!
+//   // strcat will remain them and past imformation behind....
+//   strcpy(buf, "WIDTH:");
+//   strcat(buf, __itoa(width, num_buf));
+//   strcat(buf, "\nHEIGHT:");
+//   strcat(buf, __itoa(height, num_buf));
+//   strcat(buf, "\n");
+//   return strlen((char *)buf);
+// }
+
+
+
+
+size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+  //*********************************pa3*************************************
+  AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
+  int width = gpu_config.width;
+  int height = gpu_config.height;
+
+  char res[64];
+  memset(res, 0, 64);
+  // 格式： 宽度,高度
+  sprintf(res, "%d,%d", width, height);
+  size_t real_len = strlen(res);
+  if (len < real_len) {
+    return 0;
+  }
+
+  strcpy(buf, res);
+  return real_len;
+  //*********************************pa3*************************************
+}
 
 
 size_t fb_write(const void *buf, size_t offset, size_t len)
