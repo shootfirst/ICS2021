@@ -65,12 +65,7 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 
-void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
-{
-  // if (w == 0 && h == 0) {
-  //   w = canvas_w;
-  //   h = canvas_h;
-  // }
+void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   assert(w > 0 && w <= canvas_w);
   assert(h > 0 && h <= canvas_h);
   for (size_t row = 0; row < h; ++row) {
@@ -107,6 +102,7 @@ int NDL_Init(uint32_t flags) {
 
 void NDL_Quit() {
   close(evtdev);
+  close(fbdev);
 }
 
 
