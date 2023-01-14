@@ -120,6 +120,9 @@ int NDL_Init(uint32_t flags)
     evtdev = 3;
   }
   //*****************************pa3*********************************
+  int evtdev = open("/dev/events", 0, 0);
+int fbdev = open("/dev/fb", 0, 0);
+
   char width_height[64];
   int fd = open("/proc/dispinfo", 0, 0);
   assert(read(fd, width_height, sizeof(width_height)));
