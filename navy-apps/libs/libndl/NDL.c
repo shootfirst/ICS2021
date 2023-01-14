@@ -119,35 +119,41 @@ int NDL_Init(uint32_t flags)
   {
     evtdev = 3;
   }
-  //*****************************pa3*********************************
-  int evtdev = open("/dev/events", 0, 0);
-int fbdev = open("/dev/fb", 0, 0);
+  evtdev = open("/dev/events", 0, 0);
+  fbdev = open("/dev/fb", 0, 0);
+  dispinfo_dev = open("/proc/dispinfo", 0, 0);
 
-  char width_height[64];
-  int fd = open("/proc/dispinfo", 0, 0);
-  assert(read(fd, width_height, sizeof(width_height)));
-  // 格式： 宽度,高度
-  char *width = strtok(width_height, ",");
-  char *height = width_height + strlen(width_height) + 1;
-  sscanf(width, "%d", &disp_size.w);
-  sscanf(height, "%d", &disp_size.h);
+  FILE *fp = fopen("/proc/dispinfo", "r");
+  fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
+  
   printf("width:%d, height:%d\n", disp_size.w, disp_size.h);
+  assert(disp_size.w >= 400 && disp_size.w <= 800);
+  assert(disp_size.h >= 300 && disp_size.h <= 640);
+  fclose(fp);
   return 0;
-  //*****************************pa3*********************************
-
-  // evtdev = open("/dev/events", 0, 0);
-  // fbdev = open("/dev/fb", 0, 0);
-  // dispinfo_dev = open("/proc/dispinfo", 0, 0);
-
-  // FILE *fp = fopen("/proc/dispinfo", "r");
-  // // fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &disp_size.w, &disp_size.h);
-  // fscanf(fp, "%d,%d\n", &disp_size.w, &disp_size.h);
-  // printf("width:%d, height:%d\n", disp_size.w, disp_size.h);
-  // assert(disp_size.w >= 400 && disp_size.w <= 800);
-  // assert(disp_size.h >= 300 && disp_size.h <= 640);
-  // fclose(fp);
-  // return 0;
 }
+
+// int NDL_Init(uint32_t flags)
+// {
+//   if (getenv("NWM_APP"))
+//   {
+//     evtdev = 3;
+//   }
+//   //*****************************pa3*********************************
+//   int evtdev = open("/dev/events", 0, 0);
+//   int fbdev = open("/dev/fb", 0, 0);  
+//   char width_height[64];
+//   int fd = open("/proc/dispinfo", 0, 0);
+//   assert(read(fd, width_height, sizeof(width_height)));
+//   // 格式： 宽度,高度
+//   char *width = strtok(width_height, ",");
+//   char *height = width_height + strlen(width_height) + 1;
+//   sscanf(width, "%d", &disp_size.w);
+//   sscanf(height, "%d", &disp_size.h);
+//   printf("width:%d, height:%d\n", disp_size.w, disp_size.h);
+//   return 0;
+//   //*****************************pa3*********************************
+// }
 
 void NDL_Quit()
 {
