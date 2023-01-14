@@ -140,18 +140,16 @@ int NDL_Init(uint32_t flags)
     evtdev = 3;
   }
   //*****************************pa3*********************************
-  int evtdev = open("/dev/events", 0, 0);
-  int fbdev = open("/dev/fb", 0, 0);  
+  evtdev = open("/dev/events", 0, 0);
+  fbdev = open("/dev/fb", 0, 0);
+  dispinfo_dev = open("/proc/dispinfo", 0, 0);
   char width_height[64];
-  int fd = open("/proc/dispinfo", 0, 0);
-  assert(read(fd, width_height, sizeof(width_height)));
+  assert(read(dispinfo_dev, width_height, sizeof(width_height)));
   // 格式： 宽度,高度
   char *width = strtok(width_height, ",");
   char *height = width_height + strlen(width_height) + 1;
-  // sscanf(width, "%d", &disp_size.w);
-  // sscanf(height, "%d", &disp_size.h);
-  disp_size.w = 400;
-  disp_size.h = 300;
+  sscanf(width, "%d", &disp_size.w);
+  sscanf(height, "%d", &disp_size.h);
   printf("width:%d, height:%d\n", disp_size.w, disp_size.h);
   return 0;
   //*****************************pa3*********************************
