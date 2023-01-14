@@ -50,11 +50,11 @@ static Finfo file_table[] __attribute__((used)) = {
   
   // 文件
   {"/bin/hello", 33424, 400143},
-{"/bin/event-test", 58980, 433567},
-{"/bin/time-test", 58948, 492547},
-{"/bin/file-test", 48328, 551495},
-{"/bin/dummy", 29068, 599823},
-{"/bin/bmp-test", 63096, 628891},
+{"/bin/event-test", 58908, 433567},
+{"/bin/time-test", 58884, 492475},
+{"/bin/file-test", 48328, 551359},
+{"/bin/dummy", 29068, 599687},
+{"/bin/bmp-test", 63032, 628755},
   //******************************************pa3******************************************
 #include "files.h"
 };
