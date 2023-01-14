@@ -59,10 +59,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 //   ioe_init();
 // }
 
-
-static AM_GPU_CONFIG_T gpu_config;
-static AM_GPU_FBDRAW_T gpu_fbdraw;
-
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   //*********************************pa3*************************************
   AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
@@ -83,39 +79,34 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   //*********************************pa3*************************************
 }
 
-
-size_t fb_write(const void *buf, size_t offset, size_t len)
-{
-  // yield();
-  // printf("len is %d\n",len);
-  if (len == 0)
-  {
-    // printf("end!\n");
-    gpu_fbdraw.sync = 1;
-    gpu_fbdraw.w = 0;
-    gpu_fbdraw.h = 0;
-    ioe_write(AM_GPU_FBDRAW, &gpu_fbdraw);
+//*********************************pa3*************************************
+#define END_LEN 0
+static AM_GPU_CONFIG_T config; 
+//*********************************pa3*************************************
+size_t fb_write(const void *buf, size_t offset, size_t len) {
+  AM_GPU_FBDRAW_T fbdraw;
+  if (len == END_LEN) {
+    fbdraw.sync = 1;
+    fbdraw.w = 0;
+    fbdraw.h = 0;
+    ioe_write(AM_GPU_FBDRAW, &fbdraw);
     return 0;
   }
-
-  // ioe_read(AM_GPU_CONFIG, &gpu_config);
-  int width = gpu_config.width;
-  // printf("screen is %d\n", width);
-
-  gpu_fbdraw.pixels = (void *)buf;
-  gpu_fbdraw.w = len;
-  gpu_fbdraw.h = 1;
-  gpu_fbdraw.x = offset % width;
-  gpu_fbdraw.y = offset / width;
-  // printf("w,h is %d,%d\n",gpu_fbdraw.w,gpu_fbdraw.h);
-  gpu_fbdraw.sync = 0;
-  ioe_write(AM_GPU_FBDRAW, &gpu_fbdraw);
+  int width = config.width;
+  fbdraw.pixels = (void *)buf;
+  fbdraw.w = len;
+  fbdraw.h = 1;
+  fbdraw.x = offset % width;
+  fbdraw.y = offset / width;
+  fbdraw.sync = 0;
+  ioe_write(AM_GPU_FBDRAW, &fbdraw);
   return len;
 }
 
 void init_device() {
   Log("Initializing devices...");
   ioe_init();
-
-  ioe_read(AM_GPU_CONFIG, &gpu_config);
+  //******************************pa3*********************************
+  ioe_read(AM_GPU_CONFIG, &config);
+  //******************************pa3*********************************
 }

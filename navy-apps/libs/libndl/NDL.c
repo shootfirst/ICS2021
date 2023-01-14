@@ -64,7 +64,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
 }
 
-
+#define END_LEN 0
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   // 在显示器坐标为(x, y)写入宽度w，高度height，像素为pixels的图片
   assert(w > 0 && w <= canvas_w);
@@ -74,7 +74,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     lseek(fbdev, (y + j) * canvas_w + x, SEEK_SET);
     write(fbdev, pixels + j * w, w);
   }
-  write(fbdev, 0, 0);
+  // 最后提醒写入结束
+  write(fbdev, 0, END_LEN);
 }
 
 
