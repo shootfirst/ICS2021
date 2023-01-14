@@ -9,6 +9,7 @@
 
 #define IS_NUM(ch) (ch >= '0' && ch <= '9')
 
+static int evtdev = -1;
 static int fbdev = -1;
 static int dispinfo_dev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -31,9 +32,7 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   //********************************pa3**********************************
-  int fd = open("/dev/events", 0, 0);
-  size_t read_len = read(fd, buf, len);
-  close(fd);
+  size_t read_len = read(evtdev, buf, len);
   return read_len;
   //********************************pa3**********************************
 }
@@ -139,9 +138,11 @@ int NDL_Init(uint32_t flags)
     evtdev = 3;
   }
   //*****************************pa3*********************************
+  // open 3 dev file
   evtdev = open("/dev/events", 0, 0);
   fbdev = open("/dev/fb", 0, 0);
   dispinfo_dev = open("/proc/dispinfo", 0, 0);
+
   char width_height[64];
   assert(read(dispinfo_dev, width_height, sizeof(width_height)));
   // 格式： 宽度,高度
