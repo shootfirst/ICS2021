@@ -66,11 +66,6 @@ void NDL_OpenCanvas(int *w, int *h) {
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //*************************************pa3*****************************************
-  if (w == 0 && h == 0) {
-    w = screen_w;
-    h = screen_h;
-  }
-
   int graphics = open("/dev/fb", O_RDWR);
   
   for (int i = 0; i < h; ++i){

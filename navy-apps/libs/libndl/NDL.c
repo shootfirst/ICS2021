@@ -68,9 +68,10 @@ void NDL_OpenCanvas(int *w, int *h) {
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   assert(w > 0 && w <= canvas_w);
   assert(h > 0 && h <= canvas_h);
-  for (size_t row = 0; row < h; ++row) {
-    lseek(fbdev, x + (y + row) * canvas_w, SEEK_SET);
-    write(fbdev, pixels + row * w, w);
+  // 写入显示器
+  for (size_t j = 0; j < h; ++j) {
+    lseek(fbdev, (y + j) * canvas_w + x, SEEK_SET);
+    write(fbdev, pixels + j * w, w);
   }
   write(fbdev, 0, 0);
 }
