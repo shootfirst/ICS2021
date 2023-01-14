@@ -9,14 +9,7 @@
 #include <assert.h>
 
 #define IS_NUM(ch) (ch >= '0' && ch <= '9')
-static int dispinfo_dev = -1;
 static int canvas_w = 0, canvas_h = 0;
-typedef struct size
-{
-  int w;
-  int h;
-} Size;
-Size disp_size;
 //********************************pa3**********************************
 static int evtdev = -1;
 static int fbdev = -1;
@@ -103,10 +96,10 @@ int NDL_Init(uint32_t flags)
   // open 3 dev file
   evtdev = open("/dev/events", 0, 0);
   fbdev = open("/dev/fb", 0, 0);
-  dispinfo_dev = open("/proc/dispinfo", 0, 0);
+  int fd = open("/proc/dispinfo", 0, 0);
 
   char width_height[64];
-  assert(read(dispinfo_dev, width_height, sizeof(width_height)));
+  assert(read(fd, width_height, sizeof(width_height)));
   // 格式： 宽度,高度
   char *width = strtok(width_height, ",");
   char *height = width_height + strlen(width_height) + 1;
@@ -120,7 +113,6 @@ int NDL_Init(uint32_t flags)
 void NDL_Quit()
 {
   close(evtdev);
-  close(dispinfo_dev);
 }
 
 
