@@ -9,7 +9,6 @@
 
 #define IS_NUM(ch) (ch >= '0' && ch <= '9')
 
-static int evtdev = -1;
 static int fbdev = -1;
 static int dispinfo_dev = -1;
 static int screen_w = 0, screen_h = 0;
