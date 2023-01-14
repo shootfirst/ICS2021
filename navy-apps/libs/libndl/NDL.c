@@ -32,9 +32,7 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   //********************************pa3**********************************
-  int fd = open("/dev/events", 0, 0);
-  size_t read_len = read(fd, buf, len);
-  close(fd);
+  size_t read_len = read(evtdev, buf, len);
   return read_len;
   //********************************pa3**********************************
 }
@@ -89,29 +87,36 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
   write(fbdev, 0, 0);
 }
 
-
-
-
-int NDL_Init(uint32_t flags) {
-  if (getenv("NWM_APP")) {
+int NDL_Init(uint32_t flags)
+{
+  if (getenv("NWM_APP"))
+  {
     evtdev = 3;
   }
   //*****************************pa3*********************************
+  // open 3 dev file
+  evtdev = open("/dev/events", 0, 0);
+  fbdev = open("/dev/fb", 0, 0);
+  dispinfo_dev = open("/proc/dispinfo", 0, 0);
+
   char width_height[64];
-  int fd = open("/proc/dispinfo", 0, 0);
-  assert(read(fd, width_height, sizeof(width_height)));
+  assert(read(dispinfo_dev, width_height, sizeof(width_height)));
   // 格式： 宽度,高度
   char *width = strtok(width_height, ",");
   char *height = width_height + strlen(width_height) + 1;
-  sscanf(width, "%d", &screen_w);
-  sscanf(height, "%d", &screen_h);
-  printf("width:%d, height:%d\n", screen_w, screen_h);
-  //*****************************pa3*********************************
+  sscanf(width, "%d", &disp_size.w);
+  sscanf(height, "%d", &disp_size.h);
+  printf("width:%d, height:%d\n", disp_size.w, disp_size.h);
   return 0;
+  //*****************************pa3*********************************
 }
 
-void NDL_Quit() {
+void NDL_Quit()
+{
+  close(evtdev);
+  close(dispinfo_dev);
 }
+
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
 }
