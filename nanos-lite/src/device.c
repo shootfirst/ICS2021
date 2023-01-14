@@ -110,19 +110,26 @@ static char *__itoa(int num, char *buff)
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len)
 {
-  // yield();
-  // printf("disp offset is %d\n", offset);
-  // ioe_read(AM_GPU_CONFIG, &gpu_config);
+  // int width = gpu_config.width, height = gpu_config.height;
+
+  // char num_buf[NUM_LEN];
+  // // important: must strcpy! becuase buf may have some rubbish left!
+  // // strcat will remain them and past imformation behind....
+  // strcpy(buf, "WIDTH:");
+  // strcat(buf, __itoa(width, num_buf));
+  // strcat(buf, "\nHEIGHT:");
+  // strcat(buf, __itoa(height, num_buf));
+  // strcat(buf, "\n");
+  // return strlen((char *)buf);
   int width = gpu_config.width, height = gpu_config.height;
 
   char num_buf[NUM_LEN];
   // important: must strcpy! becuase buf may have some rubbish left!
   // strcat will remain them and past imformation behind....
-  strcpy(buf, "WIDTH:");
+  memset(buf, 0, NUM_LEN);
   strcat(buf, __itoa(width, num_buf));
-  strcat(buf, "\nHEIGHT:");
+  strcat(buf, ",");
   strcat(buf, __itoa(height, num_buf));
-  strcat(buf, "\n");
   return strlen((char *)buf);
 }
 
