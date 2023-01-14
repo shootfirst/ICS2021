@@ -33,16 +33,17 @@ int NDL_PollEvent(char *buf, int len) {
 
 
 
-void NDL_OpenCanvas(int *w, int *h)
-{
-  if (*w == 0 && *h == 0)
-  {
+void NDL_OpenCanvas(int *w, int *h) {
+  //********************************pa3************************************
+  if (*w == 0 && *h == 0) {
     *w = canvas_w;
     *h = canvas_h;
   }
+  assert(*w <= canvas_w);
+  assert(*h <= canvas_h);
+  //********************************pa3************************************
 
-  if (getenv("NWM_APP"))
-  {
+  if (getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
     screen_w = *w;
