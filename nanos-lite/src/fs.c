@@ -114,49 +114,24 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   return write_len;
 }
 
-// size_t fs_lseek(int fd, size_t offset, int whence) {
-//   Finfo *finfo = &file_table[fd];
+size_t fs_lseek(int fd, size_t offset, int whence) {
+  Finfo *finfo = &file_table[fd];
 
-//   switch (whence)
-//   {
-//   case SEEK_SET :
-//     assert(offset <= finfo->size);
-//     finfo->lseek_offset = offset;
-//     break;
-//   case SEEK_CUR :
-//     assert(finfo->lseek_offset + offset <= finfo->size);
-//     finfo->lseek_offset += offset;
-//     break;
-//   case SEEK_END :
-//     assert(offset <= finfo->size);
-//     finfo->lseek_offset = finfo->size + offset;
-//     break;
-//   default:
-//     assert(0);
-//   }
-//   return finfo->lseek_offset;
-// }
-
-size_t fs_lseek(int fd, size_t offset, int whence)
-{
-  // printf("change seek of fd %d\n", fd);
-  assert(fd > 3 && fd < sizeof(file_table) / sizeof(Finfo));
   switch (whence)
   {
-  case SEEK_SET:
-    file_table[fd].lseek_offset = offset;
+  case SEEK_SET :
+    finfo->lseek_offset = offset;
     break;
-  case SEEK_CUR:
-    file_table[fd].lseek_offset += offset;
+  case SEEK_CUR :
+    finfo->lseek_offset += offset;
     break;
-  case SEEK_END:
-    file_table[fd].lseek_offset = file_table[fd].size + offset;
+  case SEEK_END :
+    finfo->lseek_offset = finfo->size + offset;
     break;
   default:
-    return -1;
+    assert(0);
   }
-  // printf("offset is %d\n", file_table[fd].lseek_offset);
-  return file_table[fd].lseek_offset;
+  return finfo->lseek_offset;
 }
 
 int fs_close(int fd) {
