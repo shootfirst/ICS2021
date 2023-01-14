@@ -31,8 +31,6 @@ int NDL_PollEvent(char *buf, int len) {
   //********************************pa3**********************************
 }
 
-
-
 void NDL_OpenCanvas(int *w, int *h) {
   //********************************pa3************************************
   if (*w == 0 && *h == 0) {
@@ -52,8 +50,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     int len = sprintf(buf, "%d %d", screen_w, screen_h);
     // let NWM resize the window and create the frame buffer
     write(fbctl, buf, len);
-    while (1)
-    {
+    while (1) {
       // 3 = evtdev
       int nread = read(3, buf, sizeof(buf) - 1);
       if (nread <= 0)
@@ -67,17 +64,16 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
 }
 
+
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
 {
-  if (w == 0 && h == 0)
-  {
-    w = canvas_w;
-    h = canvas_h;
-  }
+  // if (w == 0 && h == 0) {
+  //   w = canvas_w;
+  //   h = canvas_h;
+  // }
   assert(w > 0 && w <= canvas_w);
   assert(h > 0 && h <= canvas_h);
-  for (size_t row = 0; row < h; ++row)
-  {
+  for (size_t row = 0; row < h; ++row) {
     lseek(fbdev, x + (y + row) * canvas_w, SEEK_SET);
     write(fbdev, pixels + row * w, w);
   }
@@ -87,10 +83,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h)
 
 
 
-int NDL_Init(uint32_t flags)
-{
-  if (getenv("NWM_APP"))
-  {
+int NDL_Init(uint32_t flags) {
+  if (getenv("NWM_APP")) {
     evtdev = 3;
   }
   //*****************************pa3*********************************
@@ -111,8 +105,7 @@ int NDL_Init(uint32_t flags)
   //*****************************pa3*********************************
 }
 
-void NDL_Quit()
-{
+void NDL_Quit() {
   close(evtdev);
 }
 
