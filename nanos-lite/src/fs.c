@@ -46,16 +46,6 @@ static Finfo file_table[] __attribute__((used)) = {
   {"/dev/events", 0, 0, events_read, NULL}, //键盘，只支持读
   {"/proc/dispinfo", 0, 0, dispinfo_read, NULL}, //显示器尺寸信息
   {"/dev/fb", 0, 0, NULL, fb_write}, //显示器
-  
-  
-  // 文件
-  {"/bin/nslider", 1000000000, 0},
-//   {"/bin/hello", 33424, 400143},
-// {"/bin/event-test", 57916, 433567},
-// {"/bin/time-test", 57916, 491483},
-// {"/bin/file-test", 48328, 549399},
-// {"/bin/dummy", 29068, 597727},
-// {"/bin/bmp-test", 58104, 626795},
 
   //******************************************pa3******************************************
 #include "files.h"
@@ -74,7 +64,6 @@ void init_fs() {
 //******************************************pa3******************************************
 int fs_open(const char *pathname, int flags, int mode) {
   for (int i = 0; i < sizeof(file_table) / sizeof(Finfo); i++) {
-    printf("%s, %s\n", pathname, file_table[i].name);
     if (strcmp(file_table[i].name, pathname) == 0) {
       file_table[i].lseek_offset = 0;
       file_table[i].is_open = 1;
