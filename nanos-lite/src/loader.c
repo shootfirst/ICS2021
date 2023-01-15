@@ -38,7 +38,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // 从偏移量为0，读取长度为sizeof(Elf32_Ehdr)字节到elf_header中
   fs_lseek(fd, 0, SEEK_SET);
   read_len = fs_read(fd, (void*)(&elf_header), sizeof(Elf32_Ehdr));
-
+  printf("wwwwwwwwwwwwwwwww\n");
   assert(read_len == sizeof(Elf32_Ehdr));
 
   // 魔数检查，前4字节是魔数，注意riscv为小端序
@@ -49,7 +49,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(elf_header.e_machine == EM_RISCV);
   // elf version 检查，应该大于1
   assert(elf_header.e_version >= 1);
-  printf("wwwwwwwwwwwwwwwww\n");
+  
   // 将可以加载的seg从elf文件加载进内存的特定位置
   int i, off;
   for (i = 0, off = elf_header.e_phoff; i < elf_header.e_phnum; i++, off += sizeof(Elf32_Phdr)) {
