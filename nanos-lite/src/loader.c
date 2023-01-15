@@ -49,7 +49,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(elf_header.e_machine == EM_RISCV);
   // elf version 检查，应该大于1
   assert(elf_header.e_version >= 1);
-
+  printf("wwwwwwwwwwwwwwwww\n");
   // 将可以加载的seg从elf文件加载进内存的特定位置
   int i, off;
   for (i = 0, off = elf_header.e_phoff; i < elf_header.e_phnum; i++, off += sizeof(Elf32_Phdr)) {
@@ -72,7 +72,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     // 加载入内存
     load_seg(fd, pgm_header.p_vaddr, pgm_header.p_offset, pgm_header.p_filesz, pgm_header.p_memsz);
   }
-  printf("wwwwwwwwwwwwwwwww\n");
+  
   fs_close(fd);
   return elf_header.e_entry;
   //*******************************pa3*********************************
