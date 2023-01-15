@@ -49,7 +49,7 @@ static Finfo file_table[] __attribute__((used)) = {
   
   
   // 文件
-  {"/bin/nslider", 0, 1000000000},
+  {"/bin/nslider", 1000000000, 0},
 //   {"/bin/hello", 33424, 400143},
 // {"/bin/event-test", 57916, 433567},
 // {"/bin/time-test", 57916, 491483},
@@ -91,7 +91,6 @@ size_t fs_read(int fd, void *buf, size_t len) {
   size_t read_len = 0;
   if (finfo->read == NULL) {
     read_len = finfo->size - finfo->lseek_offset < len ? finfo->size - finfo->lseek_offset : len;
-    printf("wwwwwwwwwwwwwwwww %d\n", finfo->disk_offset + finfo->lseek_offset);
     assert(ramdisk_read(buf, finfo->disk_offset + finfo->lseek_offset, read_len) == read_len);
     finfo->lseek_offset += read_len;
   } else {
