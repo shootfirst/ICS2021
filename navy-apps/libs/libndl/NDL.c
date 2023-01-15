@@ -112,6 +112,9 @@ int NDL_Init(uint32_t flags) {
   evtdev = open("/dev/events", 0, 0);
   fbdev = open("/dev/fb", 0, 0);
   FILE *fp = fopen("/proc/dispinfo", "r");
+  
+  char buf[20];
+  int n = 8;
   fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &canvas_w, &canvas_h);
   fclose(fp);
   printf("width:%d, height:%d\n", canvas_w, canvas_h);
