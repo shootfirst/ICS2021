@@ -81,6 +81,28 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 
 
 
+// int NDL_Init(uint32_t flags) {
+//   if (getenv("NWM_APP")) {
+//     evtdev = 3;
+//   }
+//   //*****************************pa3*********************************
+//   // open 3 dev file
+//   evtdev = open("/dev/events", 0, 0);
+//   fbdev = open("/dev/fb", 0, 0);
+//   int fd = open("/proc/dispinfo", 0, 0);
+
+//   char width_height[64];
+//   assert(read(fd, width_height, sizeof(width_height)));
+//   // 格式： 宽度,高度
+//   char *width = strtok(width_height, ",");
+//   char *height = width_height + strlen(width_height) + 1;
+//   sscanf(width, "%d", &canvas_w);
+//   sscanf(height, "%d", &canvas_h);
+//   printf("width:%d, height:%d\n", canvas_w, canvas_h);
+//   return 0;
+//   //*****************************pa3*********************************
+// }
+
 int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
@@ -89,15 +111,9 @@ int NDL_Init(uint32_t flags) {
   // open 3 dev file
   evtdev = open("/dev/events", 0, 0);
   fbdev = open("/dev/fb", 0, 0);
-  int fd = open("/proc/dispinfo", 0, 0);
-
-  char width_height[64];
-  assert(read(fd, width_height, sizeof(width_height)));
-  // 格式： 宽度,高度
-  char *width = strtok(width_height, ",");
-  char *height = width_height + strlen(width_height) + 1;
-  sscanf(width, "%d", &canvas_w);
-  sscanf(height, "%d", &canvas_h);
+  FILE *fp = fopen("/proc/dispinfo", "r");
+  fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &canvas_w, &canvas_h);
+  fclose(fp);
   printf("width:%d, height:%d\n", canvas_w, canvas_h);
   return 0;
   //*****************************pa3*********************************
