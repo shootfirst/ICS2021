@@ -37,8 +37,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   size_t read_len;
   // 从偏移量为0，读取长度为sizeof(Elf32_Ehdr)字节到elf_header中
   fs_lseek(fd, 0, SEEK_SET);
-  read_len = fs_read(fd, (void*)(&elf_header), sizeof(Elf32_Ehdr));
   printf("wwwwwwwwwwwwwwwww\n");
+  read_len = fs_read(fd, (void*)(&elf_header), sizeof(Elf32_Ehdr));
+  
   assert(read_len == sizeof(Elf32_Ehdr));
 
   // 魔数检查，前4字节是魔数，注意riscv为小端序
