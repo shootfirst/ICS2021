@@ -91,6 +91,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
   size_t read_len = 0;
   if (finfo->read == NULL) {
     read_len = finfo->size - finfo->lseek_offset < len ? finfo->size - finfo->lseek_offset : len;
+    printf("wwwwwwwwwwwwwwwww %d\n", read_len);
     assert(ramdisk_read(buf, finfo->disk_offset + finfo->lseek_offset, read_len) == read_len);
     finfo->lseek_offset += read_len;
   } else {
