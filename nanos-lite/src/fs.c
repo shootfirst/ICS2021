@@ -64,6 +64,7 @@ void init_fs() {
 //******************************************pa3******************************************
 int fs_open(const char *pathname, int flags, int mode) {
   for (int i = 0; i < sizeof(file_table) / sizeof(Finfo); i++) {
+    printf("%s, %s\n", pathname, file_table[i].name);
     if (strcmp(file_table[i].name, pathname) == 0) {
       file_table[i].lseek_offset = 0;
       file_table[i].is_open = 1;
