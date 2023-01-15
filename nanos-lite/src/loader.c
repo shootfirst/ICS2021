@@ -31,7 +31,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(filename != NULL);
   int fd = fs_open(filename, 0, 0);
 
-
+  printf("wwwwwwwwwwwwwwwww\n");
   Elf32_Ehdr elf_header;
   Elf32_Phdr pgm_header;
   // 读取elf header
