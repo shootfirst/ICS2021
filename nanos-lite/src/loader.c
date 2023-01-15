@@ -31,7 +31,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   assert(filename != NULL);
   int fd = fs_open(filename, 0, 0);
 
-  printf("wwwwwwwwwwwwwwwww\n");
   Elf32_Ehdr elf_header;
   Elf32_Phdr pgm_header;
   // 读取elf header
@@ -73,7 +72,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     // 加载入内存
     load_seg(fd, pgm_header.p_vaddr, pgm_header.p_offset, pgm_header.p_filesz, pgm_header.p_memsz);
   }
-
+  printf("wwwwwwwwwwwwwwwww\n");
   fs_close(fd);
   return elf_header.e_entry;
   //*******************************pa3*********************************
