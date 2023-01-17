@@ -188,6 +188,11 @@ def_EHelper(remu) {
   rtl_divu_r(s, ddest, dsrc1, dsrc2);
 }
 
+def_EHelper(mulhu) {
+  // R:把rs1 * rs2高位写入rd(无符号乘)
+  rtl_mulu_hi(s, ddest, dsrc1, dsrc2);
+}
+
 
 
 //***********************************pa2*************************************
