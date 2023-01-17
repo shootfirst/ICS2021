@@ -30,7 +30,7 @@ void init_proc() {
 
   // load program here
   //******************************pa3*********************************
-  naive_uload(NULL, "/bin/menu");
+  naive_uload(NULL, "/bin/time-test");
   //******************************pa3*********************************
 }
 
