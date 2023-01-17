@@ -12,17 +12,17 @@
 
 void __am_gpu_init() {
   //***********************************pa2***********************************
-  // int i;
-  // // 获取宽度（从vga.c的初始化文件中可以得知）
-  // int w = inw(SIZE_ADDR + 2);  
-  // // 获取高度
-  // int h = inw(SIZE_ADDR);  
-  // // 获取显存起始地址
-  // uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  // // 向显存写入内容
-  // for (i = 0; i < w * h; i++) fb[i] = i;
-  // // 向同步寄存器写入1，让其更新屏幕
-  // outl(SYNC_ADDR, 1);
+  int i;
+  // 获取宽度（从vga.c的初始化文件中可以得知）
+  int w = inw(SIZE_ADDR + 2);  
+  // 获取高度
+  int h = inw(SIZE_ADDR);  
+  // 获取显存起始地址
+  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
+  // 向显存写入内容
+  for (i = 0; i < w * h; i++) fb[i] = i;
+  // 向同步寄存器写入1，让其更新屏幕
+  outl(SYNC_ADDR, 1);
   //***********************************pa2***********************************
 }
 
