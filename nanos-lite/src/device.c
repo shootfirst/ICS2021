@@ -45,6 +45,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if (AM_KEY_NONE == kbd.keycode) {
     return 0;
   }
+  printf("hhhhhhhhhhhhhhhhhhhhhhhh\n");
   char res[64];
   memset(res, 0, 64);
   if (kbd.keydown) {

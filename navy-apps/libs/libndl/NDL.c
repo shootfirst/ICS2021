@@ -117,7 +117,7 @@ int NDL_Init(uint32_t flags) {
   int n = 8;
   fscanf(fp, "WIDTH:%d\nHEIGHT:%d\n", &canvas_w, &canvas_h);
   fclose(fp);
-  printf("width:%d, height:%d\n", canvas_w, canvas_h);
+  // printf("width:%d, height:%d\n", canvas_w, canvas_h);
   return 0;
   //*****************************pa3*********************************
 }
