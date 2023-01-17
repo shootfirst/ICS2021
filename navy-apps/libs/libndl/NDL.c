@@ -112,6 +112,7 @@ int NDL_Init(uint32_t flags) {
   evtdev = open("/dev/events", 0, 0);
   fbdev = open("/dev/fb", 0, 0);
   FILE *fp = fopen("/proc/dispinfo", "r");
+  printf("evtdev %d\n", evtdev);
   
   char buf[20];
   int n = 8;
