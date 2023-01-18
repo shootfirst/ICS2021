@@ -68,7 +68,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   }
 
   for(size_t i = 0; i < NR_KEYS; ++i){
-    printf("keyname %s\n", keyname[i]);
+    printf("mypress is %s keyname %s\n", buf + 3, keyname[i]);
     if(((strlen(buf + 3) - 1) == strlen(keyname[i])) && (strncmp(buf + 3, keyname[i], strlen(keyname[i])) == 0)) {
       printf("keyname hit %s\n", keyname[i]);
       event->key.keysym.sym = i; 
