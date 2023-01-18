@@ -57,19 +57,19 @@ int SDL_WaitEvent(SDL_Event *event) {
   memset(buf,0,BUF_LEN);
   
   while(NDL_PollEvent(buf, BUF_LEN) == 0);
-  printf("event is %s in SDL\n", buf);
+  // printf("event is %s in SDL\n", buf);
   if(strncmp(buf, "kd", 2) == 0) {
-    printf("down\n");
+    // printf("down\n");
     event->type = SDL_KEYDOWN;
   }
   else if(strncmp(buf, "ku", 2) == 0) {
-    printf("up\n");
+    // printf("up\n");
     event->type = SDL_KEYUP;
   }
 
   for(size_t i = 0; i < NR_KEYS; ++i){
     if(((strlen(buf + 3)) == strlen(keyname[i])) && (strncmp(buf + 3, keyname[i], strlen(keyname[i])) == 0)) {
-      printf("keyname hit %s\n", keyname[i]);
+      // printf("keyname hit %s\n", keyname[i]);
       event->key.keysym.sym = i; 
       keysnap[i] = (event->type == SDL_KEYDOWN)? 1: 0;
       break; 
