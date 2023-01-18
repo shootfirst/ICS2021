@@ -30,7 +30,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   memset(buf,0,BUF_LEN);
   
   if(NDL_PollEvent(buf, BUF_LEN) == 0) return 0;
-  printf("event is %s in SDL\n", buf);
+  // printf("event is %s in SDL\n", buf);
   if(strncmp(buf, "kd", 2) == 0 ) ev->type = SDL_KEYDOWN;
   else if(strncmp(buf, "ku", 2) == 0) ev->type = SDL_KEYUP;
 
