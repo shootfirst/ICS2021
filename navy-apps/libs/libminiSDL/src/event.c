@@ -57,7 +57,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   memset(buf,0,BUF_LEN);
   
   while(NDL_PollEvent(buf, BUF_LEN) == 0){};
-  // printf("event is %s in SDL\n", buf);
+  printf("event is %s in SDL\n", buf);
   if(strncmp(buf, "kd", 2) == 0 ) event->type = SDL_KEYDOWN;
   else if(strncmp(buf, "ku", 2) == 0) event->type = SDL_KEYUP;
 
