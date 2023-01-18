@@ -37,7 +37,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 
   // printf("keyname to match is %s, len is %d", buf+3, strlen(buf+3)-1);
   for(size_t i = 0; i < NR_KEYS; ++i){
-    printf("%s strlen is %d\n",keyname[i],strlen(keyname[i]));
+    // printf("%s strlen is %d\n",keyname[i],strlen(keyname[i]));
     if(   ((strlen(buf + 3) - 1) == strlen(keyname[i])) \
        && (strncmp(buf + 3, keyname[i], strlen(keyname[i])) == 0) ) 
        {ev->key.keysym.sym = i; 
