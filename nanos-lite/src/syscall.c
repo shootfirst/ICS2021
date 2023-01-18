@@ -4,6 +4,7 @@
 //******************************pa3********************************
 #include "fs.h"
 #include <sys/time.h>
+#include <proc.h>
 //*****************************pa3***********************************
 
 //******************************pa3********************************
@@ -34,9 +35,21 @@
 // };
 
 
-void halt(int code);
+// void halt(int code);
+void naive_uload(PCB *pcb, const char *filename);
+
 void sys_exit(Context *c) {
-  halt(c->GPR2);
+  // halt(c->GPR2);
+  naive_uload(NULL, "/bin/menu");
+  // 不应该跑到这里哦
+  halt(1);
+}
+
+void sys_execve(Context *c) {
+  const char *filename = (char*)c->GPR2;
+  naive_uload(NULL, filename);
+  // 不应该跑到这里哦
+  halt(1);
 }
 
 void sys_yield(Context *c) {
@@ -126,6 +139,9 @@ void do_syscall(Context *c) {
       break;
     case SYS_gettimeofday:
       sys_gettimeofday(c);
+      break;
+    case SYS_execve:
+      sys_execve(c);
       break;
     //*******************************pa3*************************************
     default: panic("Unhandled syscall ID = %d", a[0]);
