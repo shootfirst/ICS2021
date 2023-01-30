@@ -40,7 +40,7 @@ PA1主要是基础设施，即调试代码的实现
 
 主要还是完整的求值函数eval流程
 
-```c
+```
 eval(p, q) {
   if (p > q) {
     /* Bad expression */
@@ -58,7 +58,7 @@ eval(p, q) {
     return eval(p + 1, q - 1);
   }
   else {
-    op = the position of 主运算符 in the token expression;
+    op = the position of 主运算符 in the token expression; /* 根据优先级找出不在括号内的、在最右边的、优先级最低的运算符 */
     val1 = eval(p, op - 1);
     val2 = eval(op + 1, q);
 
