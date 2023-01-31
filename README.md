@@ -343,7 +343,9 @@ write：调用驱动程序相关接口，写入指定显存即可
 
 最后成功运行仙剑奇侠传
 
+![avatar](pal1.png)
 
+![avatar](pal2.png)
 
 
 
