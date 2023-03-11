@@ -4,6 +4,14 @@
 
 #### ptmalloc
 
++ free bin
+
++ unordered bin
+
++ small bin
+
++ large bin
+
 
 
 ## 计算机系统层次架构
