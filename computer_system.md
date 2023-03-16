@@ -4,13 +4,42 @@
 
 #### ptmalloc
 
-+ free bin
+##### 分类
+
++ fast bin
 
 + unordered bin
 
 + small bin
 
 + large bin
+
+##### 过程
+
+malloc：
+
++ 分配空间大于128kb，直接mmap匿名映射分配内存
+
++ 小于64b，则去fastbin中寻找
+
++ 小于512b，则去smallbin中寻找
+
++ 没有找到，则遍历fastbin，将相邻内存块合并加入unsortedbin，在unsortedbin中寻找，然后返回。遍历的时候，将内存加入small或者large
+
++ 从largebin中寻找，然后切割加入unsorted
+
++ 还是不够，看topchunk能不能满足，不能满足则调用brk系统调用扩容topchunk
+
+free：
+
++ 回收空间大于128kb，直接回收操作系统
+
++ 和topchunk相邻，直接回收给topchunk
+
++ 小于64b，加入fastbin，检查是否能合并，能则加入unsortedbin，并且触发遍历和空闲chunk合并加入unsortedbin
+
++ 大于，加入unsortedbin，检查是否能合并
+
 
 ## 链接
 
