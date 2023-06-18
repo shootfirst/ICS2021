@@ -6,7 +6,7 @@
 
 ## 流水线
 
-## 优化
+## 程序优化
 
 
 ## 存储体系结构
@@ -173,17 +173,54 @@ typedef struct {
 
 
 
-
-
-
-
-
-## 异常控制流
-
 ## 虚拟内存
+
+#### 作用
+
++ 方便链接
+
++ 隔离进程，保护操作系统安全
+
++ 利用局部性扩大内存
+
++ 鉴权，防止内存非法访问
+
+#### 软硬件结合
+
+硬件负责提供MMU与TLB，而软件操作系统负责维护管理页表TLB，同时处理pagefault
+
+##### 名称缩写
+
+TLBI: TLB index----TLB索引（定位）
+
+TLBT: TLB tag----TLB标记（确定是否是当前PTE，有k路则需要比较k次，同缓存）
+
+VA: virtual address----虚拟地址
+
+PA: physical address----物理地址
+
+PTE: page table entry----页表条目
+
+PTEA：PTE address----页表条目地址
+
+VPO: Virtual page offset----虚拟页面偏移量（字节）
+
+VPN: Virtual page number----虚拟页号
+
+PPO: Physical page offset (same as VPO)----物理页面偏移量
+
+PPN: Physical page number----物理页号
 
 #### 多级页表
 
+节省内存
+
+
+
 ## 动态内存分配
+
+#### malloc与free原理
+
+#### 其他malloc库
 
 
