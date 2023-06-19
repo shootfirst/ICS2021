@@ -20,8 +20,6 @@
 
 + 小端序：低位在前
 
-#### 
-
 #### IEEE754标准
 
 ##### 组成
@@ -56,7 +54,35 @@ int转double：精确转换
 + 基本数据类型的对齐大小为其自身的大小，结构体数据类型的对齐大小为其元素中最大对齐大小元素的对齐大小。
 
 
-## 程序的机器级表示
+## x86
+
+#### x86汇编
+
+##### 寄存器
+
++ 执行单元EU 8个通用寄存器（EAX，EBX，ECX，EDX，EBP，ESP，ESI，EDI），64位增加R8-R15共8个寄存器
+
++ 1个指令指针寄存器EIP
+  
++ 1个标志寄存器EFLAG
+  
++ 4个段寄存器（CS，DS，SS，ES），64位增加了FS，GS
+
+##### 指令
+
+内存：mov，push，pop，xchg，lea，lds，les
+
+条件跳转：call，ret，jmp，jge，jle，jl，loop，loope，loopne，int，iret
+
+##### 规则
+
+rax：返回值
+
+参数传递：rdi，rsi，rdx，rcx，r8，r9
+
+rbp：被调用者保存，常用于保存栈帧
+
+rsp：栈指针，一般不能用作其他用途
 
 
 
