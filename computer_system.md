@@ -1,5 +1,6 @@
 # 计算机系统
 
+
 ## 信息的表示与处理
 
 #### 无符号数和有符号数的转换
@@ -52,89 +53,6 @@ int转double：精确转换
 + 如果结构体大小不是所有元素中最大对齐大小的整数倍，则结构体对齐到最大元素对齐大小的整数倍，填充空间放置到结构体末尾。
 
 + 基本数据类型的对齐大小为其自身的大小，结构体数据类型的对齐大小为其元素中最大对齐大小元素的对齐大小。
-
-
-## x86
-
-#### x86汇编
-
-##### 寄存器
-
-+ 执行单元EU 8个通用寄存器（EAX，EBX，ECX，EDX，EBP，ESP，ESI，EDI），64位增加R8-R15共8个寄存器
-
-+ 1个指令指针寄存器EIP
-  
-+ 1个标志寄存器EFLAG
-  
-+ 4个段寄存器（CS，DS，SS，ES），64位增加了FS，GS
-
-##### 指令
-
-内存：mov，push，pop，xchg，lea，lds，les
-
-条件跳转：call，ret，jmp，jge，jle，jl，loop，loope，loopne，int，iret
-
-##### 规则
-
-rax：返回值
-
-参数传递：rdi，rsi，rdx，rcx，r8，r9
-
-rbp：被调用者保存，常用于保存栈帧
-
-rsp：栈指针，一般不能用作其他用途
-
-
-
-
-
-## 程序优化
-
-#### 代码移动
-
-#### 循环体展开
-
-#### 减少函数调用
-
-#### 移除内存别名
-
-#### 分支预测友好
-
-#### 缓存友好
-
-
-## 存储体系结构
-
-#### cache
-
-cache line是cache和主存之间数据传输的最小单位。cache line大小决定`offset`位数。通过offset在cache line中读取指定数据
-
-cache由cache line组成，通过`index`去定位cache line。
-
-通过`tag`(中保存的是整个地址位宽去除index和offset使用的bit剩余部分)判断是否命中，对于直接映射，只需要比较一次，对于n路组相联，要去n个组里面一一比较
-
-##### 组织结构
-
-+ 一路组相联：一个地址对应一个cache line
-
-+ n 路组相联：一个地址对应n个组里面的cache line
-
-+ 全相联：没有index了，只有tag
-
-##### 更新策略
-
-+ 写回
-
-+ 写直达
-
-##### 不命中类型
-
-+ 强制性不命中
-
-+ 冲突不命中
-
-+ 容量不命中
-
 
 
 
@@ -263,58 +181,5 @@ typedef struct {
 #### 运行时动态链接
 
 通过dlopen dlsym和dlclose去显示装载共享对象，获取符号，卸载共享对象
-
-
-
-
-## 虚拟内存
-
-#### 作用
-
-+ 方便链接
-
-+ 隔离进程，保护操作系统安全
-
-+ 利用局部性扩大内存
-
-+ 鉴权，防止内存非法访问
-
-#### 软硬件结合
-
-硬件负责提供MMU与TLB，而软件操作系统负责维护管理页表TLB，同时处理pagefault
-
-##### 名称缩写
-
-TLBI: TLB index----TLB索引（定位）
-
-TLBT: TLB tag----TLB标记（确定是否是当前PTE，有k路则需要比较k次，同缓存）
-
-VA: virtual address----虚拟地址
-
-PA: physical address----物理地址
-
-PTE: page table entry----页表条目
-
-PTEA：PTE address----页表条目地址
-
-VPO: Virtual page offset----虚拟页面偏移量（字节）
-
-VPN: Virtual page number----虚拟页号
-
-PPO: Physical page offset (same as VPO)----物理页面偏移量
-
-PPN: Physical page number----物理页号
-
-#### 多级页表
-
-节省内存
-
-
-
-## 动态内存分配
-
-#### malloc与free原理
-
-#### 其他malloc库
 
 
